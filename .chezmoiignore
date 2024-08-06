@@ -1,0 +1,12 @@
+README.md
+LICENSE
+
+{{- if ne .chezmoi.hostname "work-laptop" }}
+# by hostname
+{{- end }}
+
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS
+{{ else if eq .chezmoi.os "linux" -}}
+# Linux
+{{ end -}}
