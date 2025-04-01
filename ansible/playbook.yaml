@@ -1,0 +1,21 @@
+- name: My first play
+  hosts: myhosts
+  become_user: root
+  become: true
+  become_method: sudo
+  tasks:
+    - name: Ping my hosts
+      ansible.builtin.ping:
+
+    - name: Print message
+      ansible.builtin.debug:
+        msg: Hello world
+
+    - name: Relax number of wrong passwords login attemps before locking out
+      community.general.ini_file: # https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html
+        path: /etc/security/faillock.conf
+        option: deny
+        value: 10
+        state: present
+        exclusive: true
+        create: false
