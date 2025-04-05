@@ -19,3 +19,36 @@
         state: present
         exclusive: true
         create: false
+
+    # https://github.com/ollama/ollama/blob/main/docs/linux.md
+    - name: Ollama | Install package from extra
+      community.general.pacman:
+        name: ollama-rocm
+        state: present
+    - name: Ollama | Add user
+      ansible.builtin.user:
+        name: ollama
+        comment: John Doe
+        group: ollama
+        shell: /bin/false
+        create_home: true
+        # home: /usr/share/ollama
+
+    - name: Ollama | Create Unit file
+      template: 
+        src: ollama/ollama.service.j2
+        dest: /etc/systemd/system/ollama.service 
+        mode: '644'
+
+    - name: Ollama | Reload systemctl configuration and restart ollama.service
+      ansible.builtin.systemd:
+        daemon_reload: true
+        name: ollama.service 
+        enabled: true
+        state: restarted
+
+    # - name: Run llama
+    #   community.docker.docker_compose_v2:
+    #     project_src: llama
+    #     state: present
+
