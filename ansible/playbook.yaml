@@ -20,6 +20,102 @@
         exclusive: true
         create: false
 
+###########
+
+    # - name: Podman | podman.socket mode
+    #   community.general.ini_file:
+    #     #path: /etc/systemd/user/podman.socket # lib: /usr/lib/systemd/user/podman.socket
+    #     path: /usr/lib/systemd/user/podman.socket
+    #     section: Socket
+    #     option: SocketMode
+    #     value:  "6660" # was: 0660
+    #     exclusive: true
+    #     # create: true
+    #     # mode: u=rw,g=r,o=r
+
+    - name: Podman | podman.socket
+      ansible.builtin.systemd:
+        name: podman.socket
+        enabled: true
+        state: started      
+        scope: system
+
+    - name: Podman | Add group
+      ansible.builtin.group:
+        name: podman
+        state: present
+        gid: 1500
+
+    - name: Podman | Add user
+      ansible.builtin.user:
+        name: podman
+        comment:
+        group: podman
+        uid: 1500
+        shell: /bin/false
+        create_home: true
+
+    - name: Podman | get Linger
+      ansible.builtin.command:
+        cmd: loginctl show-user podman
+      register: podman_linger
+      changed_when: false
+
+    - name: Podman | enable linger
+      ansible.builtin.command:
+        cmd: loginctl enable-linger podman
+      when: podman_linger.stdout.find('Linger=yes') == -1
+
+    - name: Podman | Add user toly to podman group
+      ansible.builtin.user:
+        name: toly
+        groups: podman
+        append: yes
+
+    - name: Podman | Set custom socket in containers.conf
+      community.general.ini_file:
+        path: /etc/containers/containers.conf
+        section: engine.service_destinations.production
+        option: uri
+        value: '"unix:///run/user/1500/podman/podman.sock"'
+        exclusive: true
+        create: false
+
+    - name: Podman | Allow group podman to access socket
+      ansible.builtin.file:
+        path: /run/user/1500
+        mode: g=rx
+
+    - name: Podman | Set remote engine in containers.conf
+      community.general.ini_file:
+        path: /etc/containers/containers.conf
+        section: engine
+        option: remote
+        value: "true"
+        exclusive: true
+        create: false
+
+    - name: Podman | Set active_service in containers.conf
+      community.general.ini_file:
+        path: /etc/containers/containers.conf
+        section: engine
+        option: active_service
+        value: '"production"'
+        exclusive: true
+        create: false
+
+    - name: Podman | Disable remote engine in containers.conf for podman user
+      community.general.ini_file:
+        path: /home/podman/.config/containers/containers.conf
+        section: engine
+        option: remote
+        value: "false"
+        exclusive: true
+        create: true
+        mode: u=rw,g=r,o=r
+
+########
+
     # https://github.com/ollama/ollama/blob/main/docs/linux.md
     - name: Ollama | Install package from extra
       community.general.pacman:
@@ -28,7 +124,7 @@
     - name: Ollama | Add user
       ansible.builtin.user:
         name: ollama
-        comment: John Doe
+        comment:
         group: ollama
         shell: /bin/false
         create_home: true
@@ -47,8 +143,37 @@
         enabled: true
         state: restarted
 
-    # - name: Run llama
+    # - name: Ollama | Run open-webui
     #   community.docker.docker_compose_v2:
-    #     project_src: llama
+    #     project_src: ./ansible/ollama
     #     state: present
+    #     #docker_host: unix:///run/user/1000/podman/podman.sock
+    #     docker_host: unix:///run/podman/podman.sock
+    - name: Ollama | create open-webui
+      containers.podman.podman_container:
+        name: open-webui
+        image: ghcr.io/open-webui/open-webui:main
+        state: quadlet
+        #quadlet_dir: /home/toly/.config/containers/systemd/
+        #quadlet_dir: /etc/containers/systemd/
+        quadlet_file_mode: u=rw,g=r,o=r
+        ports:
+          - "127.0.0.1:3000:8080/tcp"
+        volumes:
+          - open-webui:/app/backend/data
+        quadlet_options:
+          - |
+            [Install]
+            WantedBy=default.target
+            [Service]
+#           User=toly
+#           Group=toly
+
+    - name: Ollama | Start open-webui
+      ansible.builtin.systemd:
+        daemon_reload: true
+        name: open-webui.service
+        enabled: true
+        state: restarted
+
 
