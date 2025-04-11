@@ -22,46 +22,48 @@
 
 ###########
 
-    # https://github.com/ollama/ollama/blob/main/docs/linux.md
-    - name: Ollama | Install package from extra
-      community.general.pacman:
-        name: ollama-rocm
-        state: present
-    - name: Ollama | Add user
-      ansible.builtin.user:
+    - name: Ollama | create ollama service
+      containers.podman.podman_container:
         name: ollama
-        comment:
-        group: ollama
-        shell: /bin/false
-        create_home: true
-        # home: /usr/share/ollama
+        image: docker.io/ollama/ollama:rocm
+        state: quadlet
+        quadlet_file_mode: u=rw,g=r,o=r
+        ports:
+        # TODO: restrict to localhost connnections
+          - "0.0.0.0:11434:11434/tcp"
+        volumes:
+          - ollama:/root/.ollama
+        quadlet_options:
+          - |
+            [Unit]
+            # Conflicts=sleep.target shutdown.target
+            # StopWhenUnneeded=yes
 
-    - name: Ollama | Create Unit file
-      template: 
-        src: ollama/ollama.service.j2
-        dest: /etc/systemd/system/ollama.service
-        mode: '644'
+            [Install]
+            WantedBy=default.target
 
-    - name: Ollama | Reload systemctl configuration and restart ollama.service
+            [Container]
+            # For AMD GPU
+            AddDevice=/dev/kfd
+            AddDevice=/dev/dri
+            Environment="HSA_OVERRIDE_GFX_VERSION=10.3.0"
+            # Environment="OLLAMA_DEBUG=1"
+            # Environment="AMD_LOG_LEVEL=3"
+      register: ollamaService
+
+    - name: Ollama | Restart Ollama
       ansible.builtin.systemd:
         daemon_reload: true
-        name: ollama.service 
+        name: ollama.service
         enabled: true
         state: restarted
+      when: ollamaService.changed
 
-    # - name: Ollama | Run open-webui
-    #   community.docker.docker_compose_v2:
-    #     project_src: ./ansible/ollama
-    #     state: present
-    #     #docker_host: unix:///run/user/1000/podman/podman.sock
-    #     docker_host: unix:///run/podman/podman.sock
     - name: Ollama | create open-webui
       containers.podman.podman_container:
         name: open-webui
         image: ghcr.io/open-webui/open-webui:main
         state: quadlet
-        #quadlet_dir: /home/toly/.config/containers/systemd/
-        #quadlet_dir: /etc/containers/systemd/
         quadlet_file_mode: u=rw,g=r,o=r
         ports:
           - "127.0.0.1:3000:8080/tcp"
@@ -74,12 +76,21 @@
             [Service]
 #           User=toly
 #           Group=toly
+      register: openWebuiService
 
-    - name: Ollama | Start open-webui
+    - name: Ollama | Restart open-webui
       ansible.builtin.systemd:
         daemon_reload: true
         name: open-webui.service
         enabled: true
         state: restarted
+      when: openWebuiService.changed
+
+    - name: Ollama | pull models
+      ansible.builtin.shell: |
+        ollama='podman run --rm -e OLLAMA_HOST=host.docker.internal --add-host host.docker.internal:host-gateway ollama/ollama:rocm'
+        $ollama pull deepseek-coder-v2:16b
+        $ollama pull llama3.1:8b
+
 
 
