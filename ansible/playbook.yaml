@@ -20,7 +20,21 @@
         exclusive: true
         create: false
 
-###########
+########### Ollama & Open-Webui ###########
+
+    - name: Ollama | pull (or update) ollama image
+      containers.podman.podman_image:
+        name: docker.io/ollama/ollama:rocm
+        state: present
+        pull: true
+        force: true
+
+    - name: Ollama | pull (or update) open-webui image
+      containers.podman.podman_image:
+        name: ghcr.io/open-webui/open-webui:main
+        state: present
+        pull: true
+        force: true
 
     - name: Ollama | create ollama service
       containers.podman.podman_container:
@@ -74,8 +88,6 @@
             [Install]
             WantedBy=default.target
             [Service]
-#           User=toly
-#           Group=toly
       register: openWebuiService
 
     - name: Ollama | Restart open-webui
@@ -92,5 +104,9 @@
         $ollama pull deepseek-coder-v2:16b
         $ollama pull llama3.1:8b
 
-
-
+    - name: Prune podman dangling images
+      containers.podman.podman_prune:
+        image: true
+        image_filters: 
+          dangling: true
+      register: podmanPrune
