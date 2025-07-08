@@ -3,13 +3,18 @@
   become_user: root
   become: true
   become_method: sudo
+  vars:
+    ansible_become_password: "{{ lookup('bitwarden.secrets.lookup', 'ea5b5f39-77b6-4d59-9d9d-b314014b294b') }}"
   tasks:
     - name: Ping my hosts
       ansible.builtin.ping:
 
+    - ansible.builtin.shell: whoami
+      register: whoami_result
+
     - name: Print message
       ansible.builtin.debug:
-        msg: Hello world
+        msg: "{{ whoami_result }}"
 
     - name: Relax number of wrong passwords login attemps before locking out
       community.general.ini_file: # https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html
@@ -74,6 +79,8 @@
       when: ollamaService.changed
 
     - name: Ollama | create open-webui
+      vars:
+        WEBUI_SECRET_KEY: "{{ lookup('bitwarden.secrets.lookup', 'a40d2c1e-e80f-46f8-a8b0-b3140137a378') }}" 
       containers.podman.podman_container:
         name: open-webui
         image: ghcr.io/open-webui/open-webui:main
@@ -83,6 +90,8 @@
           - "127.0.0.1:3000:8080/tcp"
         volumes:
           - open-webui:/app/backend/data
+        env:
+          WEBUI_SECRET_KEY: "{{ WEBUI_SECRET_KEY}}"
         quadlet_options:
           - |
             [Install]
