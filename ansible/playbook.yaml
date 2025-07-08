@@ -16,106 +16,119 @@
       ansible.builtin.debug:
         msg: "{{ whoami_result }}"
 
-    - name: Relax number of wrong passwords login attemps before locking out
-      community.general.ini_file: # https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html
-        path: /etc/security/faillock.conf
-        option: deny
-        value: 10
-        state: present
-        exclusive: true
-        create: false
+########### System settings ###########
+    - name: System settings
+      block:
+      - name: Relax number of wrong passwords login attemps before locking out
+        community.general.ini_file: # https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html
+          path: /etc/security/faillock.conf
+          option: deny
+          value: 10
+          state: present
+          exclusive: true
+          create: false
+
+      - name: /etc/fstab
+        ansible.posix.mount:
+          path: /mnt/toly_seagate
+          src: UUID=B4FCCEFFFCCEBB3E
+          fstype: ntfs
+          opts: nofail
+          state: mounted
+          passno: 5
 
 ########### Ollama & Open-Webui ###########
+    - name: Ollama & Open-Webui
+      block:
+      - name: Ollama | pull (or update) ollama image
+        containers.podman.podman_image:
+          name: docker.io/ollama/ollama:rocm
+          state: present
+          pull: true
+          force: true
 
-    - name: Ollama | pull (or update) ollama image
-      containers.podman.podman_image:
-        name: docker.io/ollama/ollama:rocm
-        state: present
-        pull: true
-        force: true
+      - name: Ollama | pull (or update) open-webui image
+        containers.podman.podman_image:
+          name: ghcr.io/open-webui/open-webui:main
+          state: present
+          pull: true
+          force: true
 
-    - name: Ollama | pull (or update) open-webui image
-      containers.podman.podman_image:
-        name: ghcr.io/open-webui/open-webui:main
-        state: present
-        pull: true
-        force: true
+      - name: Ollama | create ollama service
+        containers.podman.podman_container:
+          name: ollama
+          image: docker.io/ollama/ollama:rocm
+          state: quadlet
+          quadlet_file_mode: u=rw,g=r,o=r
+          ports:
+          # TODO: restrict to localhost connnections
+            - "0.0.0.0:11434:11434/tcp"
+          volumes:
+            - ollama:/root/.ollama
+          quadlet_options:
+            - |
+              [Unit]
+              # Conflicts=sleep.target shutdown.target
+              # StopWhenUnneeded=yes
 
-    - name: Ollama | create ollama service
-      containers.podman.podman_container:
-        name: ollama
-        image: docker.io/ollama/ollama:rocm
-        state: quadlet
-        quadlet_file_mode: u=rw,g=r,o=r
-        ports:
-        # TODO: restrict to localhost connnections
-          - "0.0.0.0:11434:11434/tcp"
-        volumes:
-          - ollama:/root/.ollama
-        quadlet_options:
-          - |
-            [Unit]
-            # Conflicts=sleep.target shutdown.target
-            # StopWhenUnneeded=yes
+              [Install]
+              WantedBy=default.target
 
-            [Install]
-            WantedBy=default.target
+              [Container]
+              # For AMD GPU
+              AddDevice=/dev/kfd
+              AddDevice=/dev/dri
+              Environment="HSA_OVERRIDE_GFX_VERSION=10.3.0"
+              # Environment="OLLAMA_DEBUG=1"
+              # Environment="AMD_LOG_LEVEL=3"
+        register: ollamaService
 
-            [Container]
-            # For AMD GPU
-            AddDevice=/dev/kfd
-            AddDevice=/dev/dri
-            Environment="HSA_OVERRIDE_GFX_VERSION=10.3.0"
-            # Environment="OLLAMA_DEBUG=1"
-            # Environment="AMD_LOG_LEVEL=3"
-      register: ollamaService
+      - name: Ollama | Restart Ollama
+        ansible.builtin.systemd:
+          daemon_reload: true
+          name: ollama.service
+          enabled: true
+          state: restarted
+        when: ollamaService.changed
 
-    - name: Ollama | Restart Ollama
-      ansible.builtin.systemd:
-        daemon_reload: true
-        name: ollama.service
-        enabled: true
-        state: restarted
-      when: ollamaService.changed
+      - name: Ollama | create open-webui
+        vars:
+          WEBUI_SECRET_KEY: "{{ lookup('bitwarden.secrets.lookup', 'a40d2c1e-e80f-46f8-a8b0-b3140137a378') }}" 
+        containers.podman.podman_container:
+          name: open-webui
+          image: ghcr.io/open-webui/open-webui:main
+          state: quadlet
+          quadlet_file_mode: u=rw,g=r,o=r
+          ports:
+            - "127.0.0.1:3000:8080/tcp"
+          volumes:
+            - open-webui:/app/backend/data
+          env:
+            WEBUI_SECRET_KEY: "{{ WEBUI_SECRET_KEY}}"
+          quadlet_options:
+            - |
+              [Install]
+              WantedBy=default.target
+              [Service]
+        register: openWebuiService
 
-    - name: Ollama | create open-webui
-      vars:
-        WEBUI_SECRET_KEY: "{{ lookup('bitwarden.secrets.lookup', 'a40d2c1e-e80f-46f8-a8b0-b3140137a378') }}" 
-      containers.podman.podman_container:
-        name: open-webui
-        image: ghcr.io/open-webui/open-webui:main
-        state: quadlet
-        quadlet_file_mode: u=rw,g=r,o=r
-        ports:
-          - "127.0.0.1:3000:8080/tcp"
-        volumes:
-          - open-webui:/app/backend/data
-        env:
-          WEBUI_SECRET_KEY: "{{ WEBUI_SECRET_KEY}}"
-        quadlet_options:
-          - |
-            [Install]
-            WantedBy=default.target
-            [Service]
-      register: openWebuiService
+      - name: Ollama | Restart open-webui
+        ansible.builtin.systemd:
+          daemon_reload: true
+          name: open-webui.service
+          enabled: true
+          state: restarted
+        when: openWebuiService.changed
 
-    - name: Ollama | Restart open-webui
-      ansible.builtin.systemd:
-        daemon_reload: true
-        name: open-webui.service
-        enabled: true
-        state: restarted
-      when: openWebuiService.changed
+      - name: Ollama | pull models
+        ansible.builtin.shell: |
+          ollama='podman run --rm -e OLLAMA_HOST=host.docker.internal --add-host host.docker.internal:host-gateway ollama/ollama:rocm'
+          $ollama pull deepseek-coder-v2:16b
+          $ollama pull llama3.1:8b
 
-    - name: Ollama | pull models
-      ansible.builtin.shell: |
-        ollama='podman run --rm -e OLLAMA_HOST=host.docker.internal --add-host host.docker.internal:host-gateway ollama/ollama:rocm'
-        $ollama pull deepseek-coder-v2:16b
-        $ollama pull llama3.1:8b
-
-    - name: Prune podman dangling images
-      containers.podman.podman_prune:
-        image: true
-        image_filters: 
-          dangling: true
-      register: podmanPrune
+      - name: Prune podman dangling images
+        containers.podman.podman_prune:
+          image: true
+          image_filters: 
+            dangling: true
+        register: podmanPrune
