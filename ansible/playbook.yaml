@@ -31,11 +31,56 @@
       - name: /etc/fstab
         ansible.posix.mount:
           path: /mnt/toly_seagate
-          src: UUID=B4FCCEFFFCCEBB3E
-          fstype: ntfs
+          src: UUID=d9aa8cc5-8cb6-48e4-ba1a-67e053fc65b6
+          fstype: ext4
           opts: nofail
           state: mounted
           passno: 5
+
+########### Backup ###########
+      - name: rsnapshot config
+        ansible.builtin.copy:
+          src: rsnapshot.conf
+          dest: /etc/rsnapshot.conf
+          owner: root
+          group: root
+          mode: '0644'
+
+      # https://wiki.archlinux.org/title/Rsnapshot
+      - name: rsnapshot service
+        ansible.builtin.copy:
+          dest: /etc/systemd/system/rsnapshot@.service
+          content: |
+            [Unit]
+            Description=rsnapshot (%I) backup
+
+            [Service]
+            Type=oneshot
+            Nice=19
+            IOSchedulingClass=idle
+            ExecStart=/usr/bin/rsnapshot %I
+
+      - name: rsnapshot Timer
+        ansible.builtin.copy:
+          dest: /etc/systemd/system/rsnapshot-daily.timer
+          content: |
+            [Unit]
+            Description=rsnapshot hourly backup
+
+            [Timer]
+            OnCalendar=daily
+            Persistent=true
+            Unit=rsnapshot@daily.service
+
+            [Install]
+            WantedBy=timers.target
+
+      - name: enable rsnapshot servier
+        ansible.builtin.systemd:
+          name: rsnapshot-daily.timer
+          state: started
+          enabled: yes
+
 
 ########### Ollama & Open-Webui ###########
     - name: Ollama & Open-Webui

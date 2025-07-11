@@ -1,0 +1,52 @@
+- name: Immich
+  hosts: myhosts
+  become_user: root
+  become: true
+  become_method: sudo
+  vars:
+    ansible_become_password: "{{ lookup('bitwarden.secrets.lookup', 'ea5b5f39-77b6-4d59-9d9d-b314014b294b') }}"
+  tasks:
+    - name: Immich
+      block:
+      - name: Enable hardware acceleration for machine learning
+        community.general.ini_file: 
+          #path: /lib/systemd/system/immich-server.service
+          path: /lib/systemd/system/immich-machine-learning.service
+          section: Service
+          option: Environment
+          value: HSA_OVERRIDE_GFX_VERSION=10.3.0 HSA_USE_SVM=0
+          state: present
+          exclusive: false
+          create: false       
+        register: immichMachineLearningService
+
+      - name: Fix redis.service
+        community.general.ini_file: 
+          path: /lib/systemd/system/immich-server.service
+          section: Unit
+          option: Requires
+          value: redis.service
+          state: absent
+          exclusive: false
+          create: false       
+        register: immichServer1
+
+      - name: Fix redis.service
+        community.general.ini_file: 
+          path: /lib/systemd/system/immich-server.service
+          section: Unit
+          option: Requires
+          value: valkey.service
+          state: present
+          exclusive: false
+          create: false       
+        register: immichServer2
+
+      - name: Restart Immich
+        ansible.builtin.systemd:
+          daemon_reload: true
+          name: immich-machine-learning.service
+          enabled: true
+          state: restarted
+        when: immichServer1.changed or immichServer2.changed
+       
