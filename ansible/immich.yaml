@@ -17,7 +17,7 @@
           value: HSA_OVERRIDE_GFX_VERSION=10.3.0 HSA_USE_SVM=0
           state: present
           exclusive: false
-          create: false       
+          create: false
         register: immichMachineLearningService
 
       - name: Fix redis.service
@@ -28,7 +28,7 @@
           value: redis.service
           state: absent
           exclusive: false
-          create: false       
+          create: false
         register: immichServer1
 
       - name: Fix redis.service
