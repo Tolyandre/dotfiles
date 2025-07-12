@@ -32,7 +32,9 @@
               admin "unix//run/caddy/admin.socket"
             }
 
-            http:// {
+            http://,
+            https://toly.is-cool.dev
+            {
               # Set this path to your site's directory.
               root * /usr/share/caddy
 
@@ -47,6 +49,13 @@
 
               # Refer to the directive documentation for more options.
               # https://caddyserver.com/docs/caddyfile/directives
+            }
+
+            https://immich.localhost,
+            https://661606e8c73b.sn.mynetname.net,
+            https://immich.toly.is-cool.dev
+            {
+              reverse_proxy 127.0.0.1:2283
             }
 
             # Import additional caddy config files in /etc/caddy/conf.d/
