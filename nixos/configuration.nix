@@ -94,7 +94,10 @@ in
       kdePackages.kate
       nekoray
       telegram-desktop
-    #  thunderbird
+      popcorntime
+      vlc
+      mpv
+      bitwarden-desktop
     ];
   };
 
