@@ -92,12 +92,16 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
+      nekoray
+      telegram-desktop
     #  thunderbird
     ];
   };
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  programs.direnv.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -108,6 +112,7 @@ in
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
     vscode
+    pciutils
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
