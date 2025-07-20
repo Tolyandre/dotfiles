@@ -99,6 +99,7 @@ in
     isNormalUser = true;
     description = "Game";
     packages = with pkgs; [
+      lutris
     ];
   };
 
@@ -114,6 +115,7 @@ in
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    kdePackages.partitionmanager
     vscode
     pciutils
     nekoray
@@ -123,6 +125,7 @@ in
     mpv
     bitwarden-desktop
     qdirstat
+    partclone
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
