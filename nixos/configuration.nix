@@ -92,19 +92,19 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
-      nekoray
-      telegram-desktop
-      popcorntime
-      vlc
-      mpv
-      bitwarden-desktop
     ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  users.users.game = {
+    isNormalUser = true;
+    description = "Game";
+    packages = with pkgs; [
+    ];
+  };
 
+  programs.firefox.enable = true;
   programs.direnv.enable = true;
+  programs.steam.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -116,6 +116,13 @@ in
   #  wget
     vscode
     pciutils
+    nekoray
+    telegram-desktop
+    popcorntime
+    vlc
+    mpv
+    bitwarden-desktop
+    qdirstat
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -161,6 +168,11 @@ in
       userEmail = "2414704+Tolyandre@users.noreply.github.com";
     };
 
+  };
+
+  security.sudo = {
+    enable = true;
+    extraConfig = "Defaults        timestamp_timeout=120";
   };
 
 }
