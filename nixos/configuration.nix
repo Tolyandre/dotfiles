@@ -126,6 +126,7 @@ in
     bitwarden-desktop
     qdirstat
     partclone
+    mission-center
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
