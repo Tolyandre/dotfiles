@@ -73,8 +73,9 @@ in
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "us";
+    layout = "us,ru";
     variant = "";
+    options = "grp:alt_shift_toggle";
   };
 
   # Enable CUPS to print documents.
@@ -202,6 +203,20 @@ in
 
   fileSystems."/mnt/data" = {
     device = "/dev/disk/by-uuid/6831b904-2714-4940-bdf9-f4147cbdd6f5";
+    options = [
+      "rw"
+      "exec"
+      "user"
+    ];
+  };
+
+  fileSystems."/home" = {
+    depends = [ "/mnt/data" ];
+    device = "/mnt/data/home";
+    fsType = "none";
+    options = [
+      "bind"
+    ];
   };
 
 }
