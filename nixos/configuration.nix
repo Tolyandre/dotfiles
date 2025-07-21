@@ -197,11 +197,13 @@ in
   };
 
   fileSystems."/mnt/win11" = {
-    device = "/dev/disk/by-uuid/D0687CEC687CD2A8";
+    device = "/dev/disk/by-label/win11";
     fsType = "ntfs";
+    options = [ "nofail" ];
   };
 
   fileSystems."/mnt/data" = {
+    # for some reason this btrfs partition does not exists by-label, but exists by-uuid
     device = "/dev/disk/by-uuid/6831b904-2714-4940-bdf9-f4147cbdd6f5";
     options = [
       "rw"
@@ -216,6 +218,16 @@ in
     fsType = "none";
     options = [
       "bind"
+    ];
+  };
+
+  fileSystems."/mnt/seagate" = {
+    device = "/dev/disk/by-label/seagate";
+    options = [
+      "rw"
+      "exec"
+      "user"
+      "nofail"
     ];
   };
 
