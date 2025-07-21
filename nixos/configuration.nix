@@ -14,11 +14,25 @@ in
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    devices = [ "nodev" ];
+    efiSupport = true;
+    useOSProber = true;
+    gfxmodeEfi = "1600x1200,auto";
+    theme = pkgs.catppuccin-grub;
+    extraEntries = ''
+        menuentry "UEFI" {
+          fwsetup
+        }
+    '';
+  };
 
-    boot.kernelParams = [
+  boot.kernelParams = [
       "nvme_core.default_ps_max_latency_us=0"
+      "quiet"
+      "splash"
   ];
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -127,6 +141,7 @@ in
     qdirstat
     partclone
     mission-center
+    mc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
