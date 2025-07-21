@@ -142,6 +142,7 @@ in
     partclone
     mission-center
     mc
+    nvme-cli
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -192,6 +193,15 @@ in
   security.sudo = {
     enable = true;
     extraConfig = "Defaults        timestamp_timeout=120";
+  };
+
+  fileSystems."/mnt/win11" = {
+    device = "/dev/disk/by-uuid/D0687CEC687CD2A8";
+    fsType = "ntfs";
+  };
+
+  fileSystems."/mnt/data" = {
+    device = "/dev/disk/by-uuid/6831b904-2714-4940-bdf9-f4147cbdd6f5";
   };
 
 }
