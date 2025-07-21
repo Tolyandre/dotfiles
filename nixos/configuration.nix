@@ -34,6 +34,8 @@ in
       "nvme_core.default_ps_max_latency_us=0"
       "quiet"
       "splash"
+      # Fix Hogwarts Legacy
+      "clearcpuid=umip"
   ];
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -219,6 +221,7 @@ in
     fsType = "none";
     options = [
       "bind"
+      "exec"
     ];
   };
 
