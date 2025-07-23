@@ -14,6 +14,13 @@
         retain	daily	6
         backup	/home/game/.wine/drive_c/users/	game/
         backup	/home/game/.local/share/lutris	game/
+
+        backup	/mnt/data/immich/backups	immich/
+        backup	/mnt/data/immich/library	immich/
+        backup	/mnt/data/immich/profile	immich/
+        backup	/mnt/data/immich/upload	immich/
+
+        backup	/mnt/data/media_lib/	media_lib/
       '';
   };
 }

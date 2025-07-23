@@ -4,7 +4,7 @@
 
     extraConfig = ''
       http://,
-      https://toly.is-cool.dev,
+      https://toly.is-cool.dev
       {
         respond "Hello, world!"
       }
@@ -13,7 +13,7 @@
       https://661606e8c73b.sn.mynetname.net,
       https://immich.toly.is-cool.dev
       {
-        reverse_proxy 127.0.0.1:2283
+        reverse_proxy localhost:2283
       }
     '';
   };

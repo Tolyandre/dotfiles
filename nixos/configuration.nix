@@ -14,6 +14,7 @@ in
       ./backup.nix
       ./caddy.nix
       ./networking.nix
+      ./immich.nix
     ];
 
   # Bootloader.
@@ -139,6 +140,7 @@ in
     mission-center
     mc
     nvme-cli
+    nvtopPackages.amd
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
