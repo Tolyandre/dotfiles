@@ -71,7 +71,8 @@ in
   services.xserver.xkb = {
     layout = "us,ru";
     variant = "";
-    options = "grp:alt_shift_toggle";
+    # options = "grp:alt_shift_toggle";
+    options = "grp:win_space_toggle";
   };
 
   # Enable CUPS to print documents.
@@ -126,9 +127,11 @@ in
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    dig
     kdePackages.partitionmanager
     vscode
     pciutils
+    libreoffice
     nekoray
     telegram-desktop
     popcorntime
