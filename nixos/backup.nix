@@ -11,7 +11,7 @@
       # directory names require trailing slashes.
       extraConfig = ''
         snapshot_root	/mnt/seagate/Backup/rsnapshots/
-        retain	daily	6
+        retain	daily	30
         backup	/home/game/.wine/drive_c/users/	game/
         backup	/home/game/.local/share/lutris	game/
 

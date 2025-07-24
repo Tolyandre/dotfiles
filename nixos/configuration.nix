@@ -15,6 +15,7 @@ in
       ./caddy.nix
       ./networking.nix
       ./immich.nix
+      ./open-webui.nix
     ];
 
   # Bootloader.

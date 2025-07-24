@@ -6,7 +6,9 @@
       http://,
       https://toly.is-cool.dev
       {
-        respond "Hello, world!"
+        reverse_proxy localhost:44596
+
+        # respond "Hello, world!"
       }
 
       https://immich.localhost,
