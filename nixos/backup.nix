@@ -12,6 +12,7 @@
       extraConfig = ''
         snapshot_root	/mnt/seagate/Backup/rsnapshots/
         retain	daily	30
+
         backup	/home/game/.wine/drive_c/users/	game/
         backup	/home/game/.local/share/lutris	game/
 
@@ -21,6 +22,10 @@
         backup	/mnt/data/immich/upload	immich/
 
         backup	/mnt/data/media_lib/	media_lib/
+
+        backup	/home/toly/Documents/	toly/
+        backup	/home/toly/Downloads/	toly/
+        backup	/home/toly/Repo/	toly/
       '';
   };
 }

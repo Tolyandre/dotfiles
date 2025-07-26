@@ -6,9 +6,14 @@
       http://,
       https://toly.is-cool.dev
       {
-        reverse_proxy localhost:44596
+        root * /dotfiles-repo/nixos/caddy
+        handle_path /index.html
+        file_server
+      }
 
-        # respond "Hello, world!"
+      https://open-webui.toly.is-cool.dev
+      {
+        reverse_proxy localhost:44596
       }
 
       https://immich.localhost,

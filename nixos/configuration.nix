@@ -12,8 +12,9 @@ in
       ./hardware-configuration.nix
       (import "${home-manager}/nixos")
       ./backup.nix
-      ./caddy.nix
+      ./caddy/caddy.nix
       ./networking.nix
+      ./nextcloud.nix
       ./immich.nix
       ./open-webui.nix
     ];
@@ -134,6 +135,7 @@ in
     pciutils
     libreoffice
     nekoray
+    jq
     telegram-desktop
     popcorntime
     vlc
