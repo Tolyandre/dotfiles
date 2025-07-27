@@ -6,6 +6,10 @@
     enable = true;
     acceleration = "rocm"; # Or "rocm"
     rocmOverrideGfx = "10.3.0";
+    environmentVariables  = {
+      OLLAMA_HOST = "localhost:11434";
+    };
+
     # environmentVariables = { # I haven't been able to get this to work, but please see the serviceConfig workaround below
       # HOME = "/home/ollama";
       # OLLAMA_MODELS = "/home/ollama/models";
@@ -16,7 +20,8 @@
 
   # The Ollama environment variables, as mentioned in the comments section
   systemd.services.ollama.serviceConfig = {
-    Environment = [ "OLLAMA_HOST=localhost:11434" ];
+    #Environment = [ "OLLAMA_HOST=localhost:11434" ];
+    ExecStartPre = "/usr/bin/env sleep 30"; # Fix "no compatible GPUs were discovered"
   };
 
   services.open-webui = {
