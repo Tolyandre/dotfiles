@@ -1,3 +1,4 @@
+{ config, pkgs, ... }:
 {
   services.caddy = {
     enable = true;
@@ -6,6 +7,13 @@
       http://,
       https://toly.is-cool.dev
       {
+        handle /ocis/* {
+          reverse_proxy localhost:${toString config.services.ocis.port}
+            header_up Host {upstream_hostport}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+        }
+
         root * /dotfiles-repo/nixos/caddy
         handle_path /index.html
         file_server

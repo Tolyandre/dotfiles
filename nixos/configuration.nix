@@ -15,6 +15,7 @@ in
       ./caddy/caddy.nix
       ./networking.nix
       ./nextcloud.nix
+      ./ocis.nix
       ./immich.nix
       ./open-webui.nix
     ];
@@ -148,6 +149,7 @@ in
     nvme-cli
     nvtopPackages.amd
     obsidian
+    podman
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
