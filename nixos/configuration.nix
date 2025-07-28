@@ -147,6 +147,7 @@ in
     mc
     nvme-cli
     nvtopPackages.amd
+    obsidian
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -169,6 +170,15 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
+
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
+
+  # Automatic Garbage Collection
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 14d";
+};
 
   # home-manager
   home-manager.users.toly = { pkgs, ... }: {
