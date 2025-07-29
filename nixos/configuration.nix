@@ -18,6 +18,8 @@ in
       ./ocis.nix
       ./immich.nix
       ./open-webui.nix
+      ./podman.nix
+      ./seafile.nix
     ];
 
   # Bootloader.
@@ -150,6 +152,7 @@ in
     nvtopPackages.amd
     obsidian
     podman
+    seafile-client
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

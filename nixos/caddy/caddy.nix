@@ -4,16 +4,18 @@
     enable = true;
 
     extraConfig = ''
+      https://nextcloud.toly.is-cool.dev {
+        handle_path /seafhttp/* {
+          reverse_proxy unix//run/seafile/server.sock
+        }
+        
+        reverse_proxy unix//run/seahub/gunicorn.sock
+      }
+
+
       http://,
       https://toly.is-cool.dev
       {
-        handle /ocis/* {
-          reverse_proxy localhost:${toString config.services.ocis.port}
-            header_up Host {upstream_hostport}
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-        }
-
         root * /dotfiles-repo/nixos/caddy
         handle_path /index.html
         file_server
