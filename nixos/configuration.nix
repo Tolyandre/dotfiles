@@ -133,6 +133,7 @@ in
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
     dig
+    htop
     kdePackages.partitionmanager
     vscode
     pciutils
@@ -152,6 +153,8 @@ in
     nvtopPackages.amd
     obsidian
     podman
+    pnpm
+    nodejs
     seafile-client
   ];
 
