@@ -69,7 +69,11 @@ in
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  services.displayManager = {
+    sddm.enable = true;
+    autoLogin.enable = true;
+    autoLogin.user = "toly";
+  };
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
@@ -109,6 +113,7 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
+      kdePackages.sddm-kcm # Configuration module for SDDM
     ];
   };
 
@@ -156,6 +161,7 @@ in
     pnpm
     nodejs
     seafile-client
+    qbittorrent
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -179,8 +185,14 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = true;
+    rebootWindow = {
+      lower = "06:00";
+      upper = "07:00";
+    };
+  };
 
   # Automatic Garbage Collection
   nix.gc = {
