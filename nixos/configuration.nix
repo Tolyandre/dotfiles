@@ -20,6 +20,7 @@ in
       ./open-webui.nix
       ./podman.nix
       ./seafile.nix
+      ./camera.nix
     ];
 
   # Bootloader.
@@ -140,6 +141,7 @@ in
     dig
     htop
     kdePackages.partitionmanager
+    kdePackages.filelight
     vscode
     pciutils
     libreoffice
