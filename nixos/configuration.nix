@@ -156,6 +156,7 @@ in
     partclone
     mission-center
     mc
+    neofetch
     nvme-cli
     nvtopPackages.amd
     obsidian
