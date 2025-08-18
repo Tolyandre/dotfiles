@@ -136,35 +136,34 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-    dig
-    htop
-    kdePackages.partitionmanager
-    kdePackages.filelight
-    vscode
-    pciutils
-    libreoffice
-    nekoray
-    jq
-    telegram-desktop
-    popcorntime
-    vlc
-    mpv
     bitwarden-desktop
-    qdirstat
-    partclone
-    mission-center
+    dig
+    go
+    htop
+    jq
+    kdePackages.filelight
+    kdePackages.partitionmanager
+    libreoffice
     mc
+    mission-center
+    mpv
+    nekoray
     neofetch
+    nodejs
     nvme-cli
     nvtopPackages.amd
     obsidian
-    podman
+    partclone
+    pciutils
     pnpm
-    nodejs
-    seafile-client
+    podman
+    popcorntime
     qbittorrent
+    qdirstat
+    seafile-client
+    telegram-desktop
+    vlc
+    vscode
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
