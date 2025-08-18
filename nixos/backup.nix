@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+  # To validate this configuration, run:
+  # sudo rsnapshot configtest
+  # sudo rsnapshot -t daily
   services.rsnapshot = {
       enable = true;
       cronIntervals = {
@@ -26,6 +29,8 @@
         backup	/home/toly/Documents/	toly/
         backup	/home/toly/Downloads/	toly/
         backup	/home/toly/Repo/	toly/
+
+        backup	/my-secrets	my-secrets/
       '';
   };
 }
