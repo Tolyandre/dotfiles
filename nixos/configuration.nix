@@ -72,8 +72,8 @@ in
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager = {
     sddm.enable = true;
-    autoLogin.enable = true;
-    autoLogin.user = "toly";
+    autoLogin.enable = false;
+    # autoLogin.user = "game";
   };
   services.desktopManager.plasma6.enable = true;
 
