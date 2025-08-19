@@ -147,7 +147,6 @@ in
     mc
     mission-center
     mpv
-    nekoray
     neofetch
     nodejs
     nvme-cli
