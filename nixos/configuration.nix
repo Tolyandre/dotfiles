@@ -107,6 +107,18 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    startWhenNeeded = true;
+    settings = {
+      PasswordAuthentication = false;
+      AllowUsers = [ "toly" ];
+      PermitRootLogin = "no";
+    };
+  };
+  services.fail2ban.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.toly = {
     isNormalUser = true;
@@ -163,6 +175,7 @@ in
     telegram-desktop
     vlc
     vscode
+    wineWowPackages.stable
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
