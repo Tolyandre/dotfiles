@@ -174,7 +174,6 @@ in
     qdirstat
     seafile-client
     telegram-desktop
-    v2raya
     vlc
     vscode
     wineWowPackages.stable
