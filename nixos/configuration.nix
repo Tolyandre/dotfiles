@@ -13,6 +13,7 @@ in
       (import "${home-manager}/nixos")
       ./backup.nix
       ./caddy/caddy.nix
+      ./dotnet/dotnet.nix
       ./networking.nix
       ./nextcloud.nix
       ./ocis.nix
@@ -173,6 +174,7 @@ in
     qdirstat
     seafile-client
     telegram-desktop
+    v2raya
     vlc
     vscode
     wineWowPackages.stable
