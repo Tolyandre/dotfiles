@@ -152,6 +152,7 @@ in
     bitwarden-desktop
     dig
     go
+    google-chrome
     htop
     jq
     kdePackages.filelight
