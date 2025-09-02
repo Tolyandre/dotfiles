@@ -226,7 +226,7 @@ in
     # originally installed.
     home.stateVersion = "25.05";
 
-      programs.git = {
+    programs.git = {
       enable = true;
       userName  = "Anatoley Buranov";
       userEmail = "2414704+Tolyandre@users.noreply.github.com";
