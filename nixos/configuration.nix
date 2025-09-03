@@ -14,6 +14,7 @@ in
       ./backup.nix
       ./caddy/caddy.nix
       ./dotnet/dotnet.nix
+      ./guacamole.nix
       ./networking.nix
       ./nextcloud.nix
       ./ocis.nix

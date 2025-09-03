@@ -16,6 +16,10 @@
       http://,
       https://toly.is-cool.dev
       {
+        handle /guacamole* {
+          reverse_proxy http://localhost:41096
+        }
+
         root * /dotfiles-repo/nixos/caddy
         handle_path /index.html
         file_server
