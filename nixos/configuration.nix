@@ -15,6 +15,7 @@ in
       ./caddy/caddy.nix
       ./dotnet/dotnet.nix
       ./guacamole.nix
+      ./mysql.nix
       ./networking.nix
       ./nextcloud.nix
       ./ocis.nix
