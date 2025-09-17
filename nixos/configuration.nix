@@ -164,6 +164,7 @@ in
     mission-center
     mpv
     neofetch
+    nix-tree
     nodejs
     nvme-cli
     nvtopPackages.amd
@@ -177,6 +178,7 @@ in
     qdirstat
     seafile-client
     telegram-desktop
+    traceroute
     vlc
     vscode
     wineWowPackages.stable
