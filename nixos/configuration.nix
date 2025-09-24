@@ -152,6 +152,7 @@ in
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     bitwarden-desktop
+    dbeaver-bin
     dig
     go
     google-chrome
