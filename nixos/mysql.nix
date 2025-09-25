@@ -6,4 +6,9 @@
       bind_address = "127.0.0.1";
     };
   };
+
+  services.mysqlBackup = {
+    enable = true;
+    location = "/mnt/seagate/Backup/mysql_mariadb";
+  };
 }

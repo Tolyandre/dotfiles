@@ -22,6 +22,7 @@ in
       ./immich.nix
       ./open-webui.nix
       ./podman.nix
+      ./postgresql.nix
       ./seafile.nix
       ./camera.nix
     ];
