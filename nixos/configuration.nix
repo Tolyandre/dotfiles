@@ -167,6 +167,7 @@ in
     mpv
     neofetch
     nix-tree
+    nixfmt-rfc-style
     nodejs
     nvme-cli
     nvtopPackages.amd

@@ -20,6 +20,10 @@
           reverse_proxy http://localhost:41096
         }
 
+        handle_path /elo-web-service* {
+          reverse_proxy http://localhost:42981
+        }
+
         root * /dotfiles-repo/nixos/caddy
         handle_path /index.html
         file_server
