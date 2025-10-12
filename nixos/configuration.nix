@@ -25,6 +25,7 @@ in
       ./postgresql.nix
       ./seafile.nix
       ./camera.nix
+      ./elo-web-service.nix
     ];
 
   # Bootloader.
@@ -166,6 +167,7 @@ in
     mission-center
     mpv
     neofetch
+    nil
     nix-tree
     nixfmt-rfc-style
     nodejs
@@ -183,7 +185,7 @@ in
     telegram-desktop
     traceroute
     vlc
-    vscode
+    vscode.fhs
     wineWowPackages.stable
   ];
 
