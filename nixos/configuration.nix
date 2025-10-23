@@ -143,6 +143,11 @@ in
     ];
   };
 
+  # for lutris-0.5.19
+  nixpkgs.config.permittedInsecurePackages = [
+      "mbedtls-2.28.10"
+  ];
+
   programs.firefox.enable = true;
   programs.direnv.enable = true;
   programs.steam.enable = true;
