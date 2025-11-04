@@ -8,8 +8,8 @@
 
     machine-learning = {
       environment = {
-        HSA_OVERRIDE_GFX_VERSION="10.3.0";
-        HSA_USE_SVM="0";
+        HSA_OVERRIDE_GFX_VERSION = "10.3.0";
+        HSA_USE_SVM = "0";
       };
     };
 
@@ -17,4 +17,3 @@
     accelerationDevices = null;
   };
 }
-

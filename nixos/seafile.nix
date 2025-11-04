@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-    services.seafile = {
+  services.seafile = {
     enable = true;
 
     adminEmail = "tolyandre@yandex.ru";

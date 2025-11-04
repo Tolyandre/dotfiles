@@ -4,29 +4,29 @@
 
 { config, pkgs, ... }:
 let
-  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      (import "${home-manager}/nixos")
-      ./backup.nix
-      ./caddy/caddy.nix
-      ./dotnet/dotnet.nix
-      ./guacamole.nix
-      ./mysql.nix
-      ./networking.nix
-      ./nextcloud.nix
-      ./ocis.nix
-      ./immich.nix
-      ./open-webui.nix
-      ./podman.nix
-      ./postgresql.nix
-      ./seafile.nix
-      ./camera.nix
-      ./elo-web-service.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    (import "${home-manager}/nixos")
+    ./backup.nix
+    ./caddy/caddy.nix
+    ./dotnet/dotnet.nix
+    ./guacamole.nix
+    ./mysql.nix
+    ./networking.nix
+    ./nextcloud.nix
+    ./ocis.nix
+    ./immich.nix
+    ./open-webui.nix
+    ./podman.nix
+    ./postgresql.nix
+    ./seafile.nix
+    ./camera.nix
+    ./elo-web-service.nix
+  ];
 
   # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
@@ -38,18 +38,18 @@ in
     gfxmodeEfi = "1600x1200,auto";
     theme = pkgs.catppuccin-grub;
     extraEntries = ''
-        menuentry "UEFI" {
-          fwsetup
-        }
+      menuentry "UEFI" {
+        fwsetup
+      }
     '';
   };
 
   boot.kernelParams = [
-      "nvme_core.default_ps_max_latency_us=0"
-      "quiet"
-      "splash"
-      # Fix Hogwarts Legacy
-      "clearcpuid=umip"
+    "nvme_core.default_ps_max_latency_us=0"
+    "quiet"
+    "splash"
+    # Fix Hogwarts Legacy
+    "clearcpuid=umip"
   ];
 
   # Set your time zone.
@@ -128,7 +128,10 @@ in
   users.users.toly = {
     isNormalUser = true;
     description = "Anatoley";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       kdePackages.kate
       kdePackages.sddm-kcm # Configuration module for SDDM
@@ -145,7 +148,7 @@ in
 
   # for lutris-0.5.19
   nixpkgs.config.permittedInsecurePackages = [
-      "mbedtls-2.28.10"
+    "mbedtls-2.28.10"
   ];
 
   programs.firefox.enable = true;
@@ -228,25 +231,30 @@ in
   nix.gc = {
     automatic = true;
     options = "--delete-older-than 14d";
-};
+  };
 
   # home-manager
-  home-manager.users.toly = { pkgs, ... }: {
-    home.packages = [ pkgs.atool pkgs.httpie ];
+  home-manager.users.toly =
+    { pkgs, ... }:
+    {
+      home.packages = [
+        pkgs.atool
+        pkgs.httpie
+      ];
 
-    programs.bash.enable = true;
+      programs.bash.enable = true;
 
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "25.05";
+      # The state version is required and should stay at the version you
+      # originally installed.
+      home.stateVersion = "25.05";
 
-    programs.git = {
-      enable = true;
-      userName  = "Anatoley Buranov";
-      userEmail = "2414704+Tolyandre@users.noreply.github.com";
+      programs.git = {
+        enable = true;
+        userName = "Anatoley Buranov";
+        userEmail = "2414704+Tolyandre@users.noreply.github.com";
+      };
+
     };
-
-  };
 
   security.sudo = {
     enable = true;

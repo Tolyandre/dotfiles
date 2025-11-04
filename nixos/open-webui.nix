@@ -6,15 +6,15 @@
     enable = true;
     acceleration = "rocm"; # Or "rocm"
     rocmOverrideGfx = "10.3.0";
-    environmentVariables  = {
+    environmentVariables = {
       OLLAMA_HOST = "localhost:11434";
     };
 
     # environmentVariables = { # I haven't been able to get this to work, but please see the serviceConfig workaround below
-      # HOME = "/home/ollama";
-      # OLLAMA_MODELS = "/home/ollama/models";
-      # OLLAMA_HOST = "0.0.0.0:11434"; # Make Ollama accesible outside of localhost
-      # OLLAMA_ORIGINS = "http://localhost:8080,http://192.168.0.10:*"; # Allow access, otherwise Ollama returns 403 forbidden due to CORS
+    # HOME = "/home/ollama";
+    # OLLAMA_MODELS = "/home/ollama/models";
+    # OLLAMA_HOST = "0.0.0.0:11434"; # Make Ollama accesible outside of localhost
+    # OLLAMA_ORIGINS = "http://localhost:8080,http://192.168.0.10:*"; # Allow access, otherwise Ollama returns 403 forbidden due to CORS
     #};
   };
 
