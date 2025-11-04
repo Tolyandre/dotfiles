@@ -24,6 +24,7 @@ in
     ./podman.nix
     ./postgresql.nix
     ./seafile.nix
+    ./shell.nix
     ./camera.nix
     ./elo-web-service.nix
   ];
