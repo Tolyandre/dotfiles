@@ -180,6 +180,7 @@ in
     nix-tree
     nixfmt-rfc-style
     nodejs
+    nvd
     nvme-cli
     nvtopPackages.amd
     obsidian
