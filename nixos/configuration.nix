@@ -168,6 +168,7 @@ in
     go
     google-chrome
     htop
+    jami
     jq
     kdePackages.filelight
     kdePackages.partitionmanager
