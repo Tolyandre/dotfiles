@@ -9,6 +9,7 @@
     environmentVariables = {
       OLLAMA_HOST = "localhost:11434";
     };
+    models = "/mnt/data/ollama_models";
 
     # environmentVariables = { # I haven't been able to get this to work, but please see the serviceConfig workaround below
     # HOME = "/home/ollama";
