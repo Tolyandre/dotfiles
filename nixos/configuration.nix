@@ -165,6 +165,7 @@ in
     bitwarden-desktop
     dbeaver-bin
     dig
+    dust
     go
     google-chrome
     htop
