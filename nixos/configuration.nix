@@ -4,7 +4,7 @@
 
 { config, pkgs, ... }:
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz";
 in
 {
   imports = [
@@ -15,7 +15,6 @@ in
     ./caddy/caddy.nix
     ./dotnet/dotnet.nix
     ./guacamole.nix
-    ./mysql.nix
     ./networking.nix
     ./nextcloud.nix
     ./ocis.nix
@@ -24,7 +23,6 @@ in
     ./pipewire.nix
     ./podman.nix
     ./postgresql.nix
-    ./seafile.nix
     ./shell.nix
     ./camera.nix
     ./elo-web-service.nix
@@ -182,7 +180,6 @@ in
     popcorntime
     qbittorrent
     qdirstat
-    seafile-client
     telegram-desktop
     traceroute
     vlc
