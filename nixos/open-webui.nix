@@ -36,6 +36,8 @@
       SCARF_NO_ANALYTICS = "True";
       OLLAMA_API_BASE_URL = "http://localhost:11434/api";
       OLLAMA_BASE_URL = "http://localhost:11434";
+      
+      HOME = "${config.services.open-webui.stateDir}";
 
       # does not work
       # WEBUI_URL = "https://toly.is-cool.dev/open-webui/";
