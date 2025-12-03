@@ -168,6 +168,7 @@ in
     nil
     nix-tree
     nixfmt-rfc-style
+    unixtools.netstat
     nodejs
     nvd
     nvme-cli
