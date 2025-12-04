@@ -22,7 +22,6 @@ in
     enable = true;
     host = "localhost";
     port = 4822;
-    userMappingXml = /my-secrets/guacamole_user_mapping.xml;
   };
 
   services.guacamole-client = {
@@ -32,6 +31,7 @@ in
       guacd-port = 4822;
       guacd-hostname = "localhost";
     };
+    userMappingXml = /my-secrets/guacamole_user_mapping.xml;
   };
 
   services.tomcat = {

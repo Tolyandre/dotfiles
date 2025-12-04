@@ -241,8 +241,8 @@ in
 
       programs.git = {
         enable = true;
-        userName = "Anatoley Buranov";
-        userEmail = "2414704+Tolyandre@users.noreply.github.com";
+        settings.user.Name = "Anatoley Buranov";
+        settings.user.Email = "2414704+Tolyandre@users.noreply.github.com";
       };
 
     };

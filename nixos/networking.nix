@@ -38,7 +38,8 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  programs.nekoray = {
+  # formaly nekoray
+  programs.throne = {
     enable = true;
     tunMode.enable = true;
   };
