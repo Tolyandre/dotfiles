@@ -225,27 +225,7 @@ in
   };
 
   # home-manager
-  home-manager.users.toly =
-    { pkgs, ... }:
-    {
-      home.packages = [
-        pkgs.atool
-        pkgs.httpie
-      ];
-
-      programs.bash.enable = true;
-
-      # The state version is required and should stay at the version you
-      # originally installed.
-      home.stateVersion = "25.05";
-
-      programs.git = {
-        enable = true;
-        settings.user.Name = "Anatoley Buranov";
-        settings.user.Email = "2414704+Tolyandre@users.noreply.github.com";
-      };
-
-    };
+  home-manager.users.toly = import ./home-toly;
 
   security.sudo = {
     enable = true;
