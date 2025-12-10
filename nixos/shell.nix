@@ -2,6 +2,8 @@
 {
   environment.systemPackages = with pkgs; [
     (writeShellScriptBin "my-update" ''
+      set -e
+
       export HTTPS_PROXY="socks5://127.0.0.1:20170"
       export HTTP_PROXY="socks5://127.0.0.1:20170"
 
@@ -12,3 +14,5 @@
     '')
   ];
 }
+
+
