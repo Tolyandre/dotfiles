@@ -5,13 +5,8 @@
 
     extraConfig = ''
       https://nextcloud.toly.is-cool.dev {
-        handle_path /seafhttp/* {
-          reverse_proxy unix//run/seafile/server.sock
-        }
-        
-        reverse_proxy unix//run/seahub/gunicorn.sock
+        reverse_proxy http://localhost:${toString config.services.ocis.port}
       }
-
 
       http://,
       https://toly.is-cool.dev

@@ -3,6 +3,10 @@
   # To validate this configuration, run:
   # sudo rsnapshot configtest
   # sudo rsnapshot -t daily
+
+  # show disk usage:
+  # sudo rsnapshot du
+
   services.rsnapshot = {
     enable = true;
     cronIntervals = {
@@ -23,6 +27,8 @@
       backup	/mnt/data/immich/library	immich/
       backup	/mnt/data/immich/profile	immich/
       backup	/mnt/data/immich/upload	immich/
+
+      backup	/var/lib/ocis	ocis/
 
       backup	/mnt/data/media_lib/	media_lib/
 

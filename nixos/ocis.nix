@@ -1,47 +1,32 @@
 { config, pkgs, ... }:
 {
+  environment.systemPackages = [
+    pkgs.ocis
+    pkgs.owncloud-client
+  ];
+
+  # maintainance note:
+
+  # Before init or reset password, stop the service:
+  # sudo systemctl stop ocis.service
+
+  # init
+  # sudo rm /var/lib/ocis/config/ocis.yaml
+  # sudo -u ocis OCIS_CONFIG_DIR=/var/lib/ocis/config OCIS_BASE_DATA_PATH=/var/lib/ocis ocis init
+
+  # Reset admin password:
+  # sudo -u ocis OCIS_CONFIG_DIR=/var/lib/ocis/config OCIS_BASE_DATA_PATH=/var/lib/ocis ocis idm resetpassword
+
   services.ocis = {
-    # I can't manage this to work
-    enable = false;
-    #package = pkgs.ocis;
+    enable = true;
     address = "localhost";
     port = 9200;
-    #url = "https://toly.is-cool.dev/ocis/";
+    stateDir = "/var/lib/ocis";
+    configDir = "/var/lib/ocis/config";
     environment = {
       PROXY_TLS = "false";
-      # does not work
-      PROXY_HTTP_ROOT = "/ocis/";
-      PROXY_HTTP_ADDR = "localhost:9200";
-      OCIS_URL = "https://toly.is-cool.dev/ocis/";
+      OCIS_URL = "https://nextcloud.toly.is-cool.dev";
       OCIS_EXCLUDE_RUN_SERVICES = "notifications";
-
-      # TODO: secrets management (and move it to environmentFile)
-      CS3_ALLOW_INSECURE = "true";
-      GATEWAY_STORAGE_USERS_MOUNT_ID = "123";
-      GRAPH_APPLICATION_ID = "1234";
-      IDM_IDPSVC_PASSWORD = "password";
-      IDM_REVASVC_PASSWORD = "password";
-      IDM_SVC_PASSWORD = "password";
-      IDP_ISS = "https://localhost:9200";
-      IDP_TLS = "false";
-      OCIS_INSECURE = "false";
-      OCIS_INSECURE_BACKENDS = "true";
-      OCIS_JWT_SECRET = "super_secret";
-      OCIS_LDAP_BIND_PASSWORD = "password";
-      OCIS_LOG_LEVEL = "error";
-      OCIS_MACHINE_AUTH_API_KEY = "foo";
-      OCIS_MOUNT_ID = "123";
-      OCIS_SERVICE_ACCOUNT_ID = "foo";
-      OCIS_SERVICE_ACCOUNT_SECRET = "foo";
-      OCIS_STORAGE_USERS_MOUNT_ID = "123";
-      OCIS_SYSTEM_USER_API_KEY = "foo";
-      OCIS_SYSTEM_USER_ID = "123";
-      OCIS_TRANSFER_SECRET = "foo";
-      STORAGE_USERS_MOUNT_ID = "123";
-      TLS_INSECURE = "true";
-      TLS_SKIP_VERIFY_CLIENT_CERT = "true";
-      WEBDAV_ALLOW_INSECURE = "true";
-
     };
   };
 }
