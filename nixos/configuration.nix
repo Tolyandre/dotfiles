@@ -21,6 +21,7 @@ in
     ./immich.nix
     ./open-webui.nix
     ./pipewire.nix
+    ./pay-respects.nix
     ./podman.nix
     ./postgresql.nix
     ./shell.nix
