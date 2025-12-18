@@ -13,20 +13,19 @@ in
     (import "${home-manager}/nixos")
     ./backup.nix
     ./caddy/caddy.nix
+    ./camera.nix
     ./dotnet/dotnet.nix
+    ./elo-web-service.nix
     ./guacamole.nix
-    ./networking.nix
-    ./nextcloud.nix
-    ./ocis.nix
     ./immich.nix
+    ./networking.nix
+    ./ocis.nix
     ./open-webui.nix
-    ./pipewire.nix
     ./pay-respects.nix
+    ./pipewire.nix
     ./podman.nix
     ./postgresql.nix
     ./shell.nix
-    ./camera.nix
-    ./elo-web-service.nix
   ];
 
   # Bootloader.
