@@ -166,6 +166,7 @@ in
     mpv
     neofetch
     nil
+    nix-search-cli
     nix-tree
     nixfmt-rfc-style
     unixtools.netstat
