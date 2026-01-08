@@ -39,7 +39,7 @@
   };
 
   services.xrdp.enable = true;
-  #services.xrdp.defaultWindowManager = "startplasma-x11"; # does not work
+  services.xrdp.defaultWindowManager = "startplasma-x11";
   #services.xserver.enable = true;
   #services.xserver.displayManager.sddm.enable = true;
 }

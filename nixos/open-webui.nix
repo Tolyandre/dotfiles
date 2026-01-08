@@ -8,6 +8,7 @@
     rocmOverrideGfx = "10.3.0";
     environmentVariables = {
       OLLAMA_HOST = "localhost:11434";
+      ROCR_VISIBLE_DEVICES = "0"; # use discrete GPU instead of integrated
     };
     models = "/mnt/data/ollama_models";
 
