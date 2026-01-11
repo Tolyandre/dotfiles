@@ -176,6 +176,7 @@ in
     nvme-cli
     nvtopPackages.amd
     obsidian
+    opencode
     partclone
     pciutils
     pnpm
