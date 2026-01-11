@@ -153,6 +153,7 @@ in
     dbeaver-bin
     dig
     dust
+    dysk
     go
     google-chrome
     htop
