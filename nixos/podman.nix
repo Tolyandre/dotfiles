@@ -6,7 +6,9 @@
       dockerCompat = true;
     };
 
+    # see also nixos/home-toly/podman.nix
     containers = {
+      enable = true;
       policy = {
         default = [ { type = "insecureAcceptAnything"; } ];
         transports = {
@@ -23,4 +25,8 @@
       };
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    podman-compose
+  ];
 }

@@ -14,6 +14,7 @@
       oauth2_auth_uri = "https://accounts.google.com/o/oauth2/auth";
       oauth2_redirect_uri = "https://tolyandre.github.io/elo/oauth2-callback";
       oauth2_token_uri = "https://oauth2.googleapis.com/token";
+      oauth2_userinfo_uri = "https://www.googleapis.com/oauth2/v1/userinfo";
       frontend_uri = "https://tolyandre.github.io/elo";
       cookie_ttl_seconds = 2592000; # 3600*24*30
       postgres = {
