@@ -27,6 +27,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    podman-compose
+   # podman-compose
+   docker-compose
   ];
 }

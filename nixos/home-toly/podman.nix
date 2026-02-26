@@ -28,9 +28,9 @@
     unqualified-search-registries = ["docker.io", "quay.io"]
   '';
 
-  # чтобы container dex не менял права монтированных файлов так, что их нельзя удалить
-  xdg.configFile."containers/containers.conf".text = ''
-    [containers]
-    userns="keep-id"
-  '';
+  # # чтобы container dex не менял права монтированных файлов так, что их нельзя удалить
+  # xdg.configFile."containers/containers.conf".text = ''
+  #   [containers]
+  #   userns="keep-id"
+  # '';
 }
