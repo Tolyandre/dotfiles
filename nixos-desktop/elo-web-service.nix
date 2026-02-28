@@ -1,8 +1,9 @@
 { config, pkgs, ... }:
 {
-  imports = [
-    /home/toly/Repo/Tolyandre/elo/nix/elo-web-service-module.nix
-  ];
+  # Модуль elo теперь импортируется из flake в flake.nix, поэтому здесь убран абсолютный путь.
+  # imports = [
+  #   /home/toly/Repo/Tolyandre/elo/nix/elo-web-service-module.nix
+  # ];
 
   services.elo-web-service = {
     enable = true;
