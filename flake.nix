@@ -15,11 +15,12 @@
       nixpkgs,
       home-manager,
       flake-utils,
+      sops-nix,
+      secrets,
       ...
     }:
     let
       system = "x86_64-linux";
-      # загружаем архив репо прямо (замените sha256 на реальное значение, полученное командой ниже)
       elosrc = builtins.fetchTarball {
         url = "https://github.com/Tolyandre/elo/archive/refs/heads/main.tar.gz";
         sha256 = "1r92vbp11j2z8pry7v6dvg88g3drwmjd3asv9hi2ca6ka452wp55";
@@ -30,11 +31,18 @@
         nixos-desktop = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
+            # make sops available for configuration and modules
+            sops-nix.nixosModules.default
+
+            # main system configuration (will be called with module args)
             ./nixos-desktop/configuration.nix
-            # импортируем конкретный файл из архива (не весь каталог)
             (import "${elosrc}/nix/elo-web-service-module.nix")
+
+            # home-manager provided module
             home-manager.nixosModules.home-manager
           ];
+
+          specialArgs = { secrets = secrets;};
         };
       };
     };

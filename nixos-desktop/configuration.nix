@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, secrets, ... }:
+{
+  config,
+  pkgs,
+  secrets,
+  ...
+}:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -12,7 +17,7 @@
     ./caddy/caddy.nix
     ./camera.nix
     ./dotnet/dotnet.nix
-    ./elo-web-service.nix { inherit secrets; }
+    ./elo-web-service.nix
     ./guacamole.nix
     ./immich.nix
     ./networking.nix
@@ -220,10 +225,18 @@
     };
   };
 
-  # Automatic Garbage Collection
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 14d";
+  nix = {
+    # Automatic Garbage Collection
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+    };
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
   };
 
   # home-manager

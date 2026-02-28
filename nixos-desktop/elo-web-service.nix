@@ -5,24 +5,24 @@
   ...
 }:
 {
-  sops.secrets."elo-web-service/elo-project-466111.json" = {
-    sopsFile = builtins.toString secrets + "/secrets/elo-web-service/elo-project-466111.json.sops";
-    path = "/run/secrets/elo-web-service/elo-project-466111.json";
+  sops.secrets."elo-web-service/elo-project-466111-adeffde84816.json" = {
+    sopsFile = "${secrets}/secrets/elo-web-service/elo-project-466111-adeffde84816.json.sops";
     owner = "root";
     mode = "0400";
+    format = "binary";
   };
 
   sops.secrets."elo-web-service/secrets.env" = {
-    sopsFile = builtins.toString secrets + "/secrets/elo-web-service/secrets.env.sops";
-    path = "/run/secrets/elo-web-service/secrets.env";
+    sopsFile = "${secrets}/secrets/elo-web-service/secrets.env.sops";
     owner = "root";
     mode = "0400";
+    format = "dotenv";
   };
 
   services.elo-web-service = {
     enable = true;
-    secrets-env-file = "/run/secrets/elo-web-service/secrets.env";
-    google-service-account-key = "/run/secrets/elo-web-service/elo-project-466111.json";
+    secrets-env-file = config.sops.secrets."elo-web-service/secrets.env".path;
+    google-service-account-key = config.sops.secrets."elo-web-service/elo-project-466111-adeffde84816.json".path;
     config = {
       doc_id = "1bf6bmd63dvO9xjtnoTGmkcWJJE0NetQRjKkgcQvovQQ";
       address = "localhost:42981";

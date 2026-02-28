@@ -96,11 +96,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1772303570,
-        "narHash": "sha256-j/dLxkuw+/NWMvHOCr0PqCTfKT1R6Tdm6r37JaAVq54=",
+        "lastModified": 1772313058,
+        "narHash": "sha256-4C/LCIX2zGGYsTjtSXB4HENrq3KXFgMTMV9rcwfZD20=",
         "ref": "refs/heads/main",
-        "rev": "8190b2fc94713ab7a63d4e2b2d3fcf6dad2193f4",
-        "revCount": 2,
+        "rev": "6a5516c60e9c4afdf23de8bea6fddd9448cd74d2",
+        "revCount": 3,
         "type": "git",
         "url": "ssh://git@github.com/Tolyandre/dotfiles-secrets.git"
       },
