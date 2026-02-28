@@ -1,14 +1,27 @@
 { config, pkgs, ... }:
 {
-  # Модуль elo теперь импортируется из flake в flake.nix, поэтому здесь убран абсолютный путь.
-  # imports = [
-  #   /home/toly/Repo/Tolyandre/elo/nix/elo-web-service-module.nix
-  # ];
+  imports = [ inputs.sops-nix.nixosModule ];
+
+  sops.secrets."elo-web-service/elo-project-466111.json" = {
+    sopsFile =
+      builtins.toString inputs.secrets + "/secrets/elo-web-service/elo-project-466111.json.sops";
+    path = "/run/secrets/elo-web-service/elo-project-466111.json";
+    owner = "root";
+    mode = "0400";
+  };
+
+  sops.secrets."elo-web-service/secrets.env" = {
+    sopsFile =
+      builtins.toString inputs.secrets + "/secrets/elo-web-service/secrets.env.sops";
+    path = "/run/secrets/elo-web-service/secrets.env";
+    owner = "root";
+    mode = "0400";
+  };
 
   services.elo-web-service = {
     enable = true;
-    secrets-env-file = "/my-secrets/elo-web-service/secrets.env";
-    google-service-account-key = "/my-secrets/elo-web-service/elo-project-466111-adeffde84816.json";
+    secrets-env-file = "/run/secrets/elo-web-service/secrets.env";
+    google-service-account-key = "/run/secrets/elo-web-service/elo-project-466111.json";
     config = {
       doc_id = "1bf6bmd63dvO9xjtnoTGmkcWJJE0NetQRjKkgcQvovQQ";
       address = "localhost:42981";

@@ -18,6 +18,13 @@
   #     })
   #   ];
 
+  sops.secrets."guacamole_user_mapping.xml" = {
+    sopsFile = builtins.toString inputs.secrets + "/secrets/guacamole/guacamole_user_mapping.xml.sops";
+    path = "/run/secrets/guacamole/guacamole_user_mapping.xml";
+    owner = "root";
+    mode = "0400";
+  };
+
   services.guacamole-server = {
     enable = true;
     host = "127.0.0.1";
@@ -31,7 +38,7 @@
       guacd-port = 4822;
       guacd-hostname = "127.0.0.1";
     };
-    userMappingXml = /my-secrets/guacamole_user_mapping.xml;
+    userMappingXml = /run/secrets/guacamole/guacamole_user_mapping.xml;
   };
 
   services.tomcat = {

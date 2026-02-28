@@ -182,6 +182,7 @@
     popcorntime
     qbittorrent
     qdirstat
+    sops
     telegram-desktop
     traceroute
     vlc
@@ -270,4 +271,8 @@
   };
 
   hardware.bluetooth.enable = true;
+
+  sops = {
+    age.keyFile = "/my-secrets/sops-nix/key.txt";
+  };
 }
