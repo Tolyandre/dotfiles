@@ -2,15 +2,17 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz";
-in
+{
+  config,
+  pkgs,
+  secrets,
+  ...
+}:
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    (import "${home-manager}/nixos")
+    # home-manager is now provided by the flake; remove the fetchTarball/import here
     ./backup.nix
     ./caddy/caddy.nix
     ./camera.nix
@@ -185,6 +187,7 @@ in
     popcorntime
     qbittorrent
     qdirstat
+    sops
     telegram-desktop
     traceroute
     vlc
@@ -222,10 +225,18 @@ in
     };
   };
 
-  # Automatic Garbage Collection
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 14d";
+  nix = {
+    # Automatic Garbage Collection
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+    };
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
   };
 
   # home-manager
@@ -273,4 +284,8 @@ in
   };
 
   hardware.bluetooth.enable = true;
+
+  sops = {
+    age.keyFile = "/my-secrets/sops-nix/key.txt";
+  };
 }

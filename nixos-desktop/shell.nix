@@ -7,8 +7,11 @@
       export HTTPS_PROXY="socks5://127.0.0.1:20170"
       export HTTP_PROXY="socks5://127.0.0.1:20170"
 
-      nixos-rebuild switch --upgrade
-      
+      nix-channel --update
+      nix flake update /dotfiles-repo
+
+      nixos-rebuild switch --flake /dotfiles-repo#nixos-desktop
+
       echo ""
       nvd diff $(ls -dv /nix/var/nix/profiles/system-*-link | tail -2)
     '')
