@@ -1,18 +1,19 @@
-{ config, pkgs, ... }:
 {
-  imports = [ inputs.sops-nix.nixosModule ];
-
+  config,
+  pkgs,
+  secrets,
+  ...
+}:
+{
   sops.secrets."elo-web-service/elo-project-466111.json" = {
-    sopsFile =
-      builtins.toString inputs.secrets + "/secrets/elo-web-service/elo-project-466111.json.sops";
+    sopsFile = builtins.toString secrets + "/secrets/elo-web-service/elo-project-466111.json.sops";
     path = "/run/secrets/elo-web-service/elo-project-466111.json";
     owner = "root";
     mode = "0400";
   };
 
   sops.secrets."elo-web-service/secrets.env" = {
-    sopsFile =
-      builtins.toString inputs.secrets + "/secrets/elo-web-service/secrets.env.sops";
+    sopsFile = builtins.toString secrets + "/secrets/elo-web-service/secrets.env.sops";
     path = "/run/secrets/elo-web-service/secrets.env";
     owner = "root";
     mode = "0400";

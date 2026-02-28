@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, secrets, ... }:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -12,7 +12,7 @@
     ./caddy/caddy.nix
     ./camera.nix
     ./dotnet/dotnet.nix
-    ./elo-web-service.nix
+    ./elo-web-service.nix { inherit secrets; }
     ./guacamole.nix
     ./immich.nix
     ./networking.nix

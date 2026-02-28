@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, secrets, ... }:
 
 # let
 #   # старый nixpkgs, где freerdp2 ещё есть
@@ -19,7 +19,7 @@
   #   ];
 
   sops.secrets."guacamole_user_mapping.xml" = {
-    sopsFile = builtins.toString inputs.secrets + "/secrets/guacamole/guacamole_user_mapping.xml.sops";
+    sopsFile = builtins.toString secrets + "/secrets/guacamole/guacamole_user_mapping.xml.sops";
     path = "/run/secrets/guacamole/guacamole_user_mapping.xml";
     owner = "root";
     mode = "0400";
