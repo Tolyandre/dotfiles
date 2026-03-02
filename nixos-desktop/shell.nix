@@ -8,7 +8,7 @@
       export HTTP_PROXY="socks5://127.0.0.1:20170"
 
       nix-channel --update
-      nix flake update /dotfiles-repo
+      nix flake update --flake /dotfiles-repo
 
       nixos-rebuild switch --flake /dotfiles-repo#nixos-desktop
 
