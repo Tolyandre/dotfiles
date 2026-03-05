@@ -23,7 +23,7 @@
       system = "x86_64-linux";
       elosrc = builtins.fetchTarball {
         url = "https://github.com/Tolyandre/elo/archive/refs/heads/main.tar.gz";
-        sha256 = "1r92vbp11j2z8pry7v6dvg88g3drwmjd3asv9hi2ca6ka452wp55";
+        sha256 = "1277jaqqn4ar2gm1fxjxx8kr8f9zamn163s1yci7rcp341ik5jlh";
       };
     in
     {

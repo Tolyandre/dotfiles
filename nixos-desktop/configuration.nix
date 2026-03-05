@@ -153,6 +153,7 @@
   environment.systemPackages = with pkgs; [
     age
     bitwarden-desktop
+    claude-code
     dbeaver-bin
     dig
     dust
