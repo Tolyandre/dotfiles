@@ -7,6 +7,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     sops-nix.url = "github:Mic92/sops-nix";
     secrets.url = "git+ssh://git@github.com/Tolyandre/dotfiles-secrets.git";
+    elo.url = "github:tolyandre/elo";
   };
 
   outputs =
@@ -17,14 +18,11 @@
       flake-utils,
       sops-nix,
       secrets,
+      elo,
       ...
     }:
     let
       system = "x86_64-linux";
-      elosrc = builtins.fetchTarball {
-        url = "https://github.com/Tolyandre/elo/archive/refs/heads/main.tar.gz";
-        sha256 = "00hf19k3zpshl2i3jrmcxmhhmc88l9miqnxjfqr6bclsw9s8klnf";
-      };
     in
     {
       nixosConfigurations = {
@@ -36,7 +34,9 @@
 
             # main system configuration (will be called with module args)
             ./nixos-desktop/configuration.nix
-            (import "${elosrc}/nix/elo-web-service-module.nix")
+
+            #elo-web-service configuration module
+            elo.nixosModules.default
 
             # home-manager provided module
             home-manager.nixosModules.home-manager
