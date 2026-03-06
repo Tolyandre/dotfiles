@@ -19,6 +19,10 @@
           reverse_proxy http://${config.services.elo-web-service.config.address}
         }
 
+        handle_path /music* {
+          reverse_proxy 127.0.0.1:${toString config.services.navidrome.settings.Port}
+        }
+
         root * /dotfiles-repo/nixos/caddy
         handle_path /index.html
         file_server

@@ -20,6 +20,7 @@
     ./elo-web-service.nix
     ./guacamole.nix
     ./immich.nix
+    ./navidrome.nix
     ./networking.nix
     ./ocis.nix
     ./open-webui.nix
