@@ -22,9 +22,7 @@
   services.elo-web-service = {
     enable = true;
     secrets-env-file = config.sops.secrets."elo-web-service/secrets.env".path;
-    google-service-account-key = config.sops.secrets."elo-web-service/elo-project-466111-adeffde84816.json".path;
     config = {
-      doc_id = "1bf6bmd63dvO9xjtnoTGmkcWJJE0NetQRjKkgcQvovQQ";
       address = "localhost:42981";
       oauth2_auth_uri = "https://accounts.google.com/o/oauth2/auth";
       oauth2_redirect_uri = "https://tolyandre.github.io/elo/oauth2-callback";
