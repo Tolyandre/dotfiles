@@ -11,7 +11,7 @@
       MusicFolder = "/mnt/seagate/Music";
       DataFolder = "/var/lib/navidrome";
 
-      BaseURL = "/music";
+      BaseURL = "https://toly.is-cool.dev/music";
     };
   };
 }
