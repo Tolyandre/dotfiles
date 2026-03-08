@@ -5,6 +5,7 @@
 {
   config,
   pkgs,
+  unstable,
   secrets,
   ...
 }:
@@ -151,51 +152,55 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    age
-    bitwarden-desktop
-    claude-code
-    dbeaver-bin
-    dig
-    dust
-    dysk
-    go
-    google-chrome
-    htop
-    jami
-    jq
-    kdePackages.filelight
-    kdePackages.partitionmanager
-    libreoffice
-    mc
-    mission-center
-    mpv
-    neofetch
-    nil
-    nix-search-cli
-    nix-tree
-    nixfmt-rfc-style
-    unixtools.netstat
-    nodejs
-    nvd
-    nvme-cli
-    nvtopPackages.amd
-    obsidian
-    opencode
-    partclone
-    pciutils
-    pnpm
-    podman
-    popcorntime
-    qbittorrent
-    qdirstat
-    sops
-    telegram-desktop
-    traceroute
-    vlc
-    vscode.fhs
-    wineWowPackages.stable
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      age
+      bitwarden-desktop
+      dbeaver-bin
+      dig
+      dust
+      dysk
+      go
+      google-chrome
+      htop
+      jami
+      jq
+      kdePackages.filelight
+      kdePackages.partitionmanager
+      libreoffice
+      mc
+      mission-center
+      mpv
+      neofetch
+      nil
+      nix-search-cli
+      nix-tree
+      nixfmt-rfc-style
+      unixtools.netstat
+      nodejs
+      nvd
+      nvme-cli
+      nvtopPackages.amd
+      obsidian
+      opencode
+      partclone
+      pciutils
+      pnpm
+      podman
+      popcorntime
+      qbittorrent
+      qdirstat
+      sops
+      traceroute
+      vlc
+      vscode.fhs
+      wineWowPackages.stable
+    ]
+    ++ [
+      unstable.claude-code
+      unstable.telegram-desktop
+    ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

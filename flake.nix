@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     flake-utils.url = "github:numtide/flake-utils";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -14,6 +15,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       flake-utils,
       sops-nix,
@@ -28,6 +30,7 @@
       nixosConfigurations = {
         nixos-desktop = nixpkgs.lib.nixosSystem {
           inherit system;
+
           modules = [
             # make sops available for configuration and modules
             sops-nix.nixosModules.default
@@ -42,7 +45,13 @@
             home-manager.nixosModules.home-manager
           ];
 
-          specialArgs = { secrets = secrets;};
+          specialArgs = {
+            secrets = secrets;
+            unstable = import nixpkgs-unstable {
+              inherit system;
+              config.allowUnfree = true;
+            };
+          };
         };
       };
     };
