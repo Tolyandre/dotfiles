@@ -280,6 +280,20 @@
     ];
   };
 
+  # sudo mkdir -p /mnt/data/tmp
+  # sudo chmod 1777 /mnt/data/tmp
+  fileSystems."/tmp" = {
+    depends = [ "/mnt/data" ];
+    device = "/mnt/data/tmp";
+    fsType = "none";
+    options = [
+      "bind"
+      "rw"
+      "exec"
+      "noatime"
+    ];
+  };
+
   fileSystems."/mnt/seagate" = {
     device = "/dev/disk/by-label/seagate";
     options = [
