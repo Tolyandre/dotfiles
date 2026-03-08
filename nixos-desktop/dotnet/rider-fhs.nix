@@ -1,5 +1,5 @@
 # run:
-# nix-shell /dotfiles-repo/nixos/dotnet/rider-fhs.nix
+# nix-shell /dotfiles-repo/nixos-desktop/dotnet/rider-fhs.nix
 
 {
   pkgs ? import <nixpkgs> { },
