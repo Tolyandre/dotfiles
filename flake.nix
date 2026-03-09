@@ -27,6 +27,10 @@
       system = "x86_64-linux";
     in
     {
+      devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
+        packages = [ nixpkgs.legacyPackages.${system}.python3 ];
+      };
+
       nixosConfigurations = {
         nixos-desktop = nixpkgs.lib.nixosSystem {
           inherit system;
