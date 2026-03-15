@@ -232,6 +232,11 @@
     };
   };
 
+  # fix "repository path '/dotfiles-repo' is not owned by current user" for `nixos-upgrade-start`
+  programs.git.config = {
+    safe.directory = [ "/dotfiles-repo" ];
+  };
+
   nix = {
     # Automatic Garbage Collection
     gc = {
