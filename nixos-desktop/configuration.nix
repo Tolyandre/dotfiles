@@ -257,6 +257,22 @@
   security.sudo = {
     enable = true;
     extraConfig = "Defaults        timestamp_timeout=120";
+    extraRules = [
+      {
+        users = [ "toly" ];
+        commands = [
+          { command = "/run/current-system/sw/bin/df";       options = [ "NOPASSWD" ]; }
+          { command = "/run/current-system/sw/bin/du";       options = [ "NOPASSWD" ]; }
+          { command = "/run/current-system/sw/bin/lsblk";    options = [ "NOPASSWD" ]; }
+          { command = "/run/current-system/sw/bin/blkid";    options = [ "NOPASSWD" ]; }
+          { command = "/run/current-system/sw/bin/fdisk";    options = [ "NOPASSWD" ]; }
+          { command = "/run/current-system/sw/bin/smartctl"; options = [ "NOPASSWD" ]; }
+          { command = "/run/current-system/sw/bin/nvme";     options = [ "NOPASSWD" ]; }
+          { command = "/run/current-system/sw/bin/iostat";   options = [ "NOPASSWD" ]; }
+          { command = "/run/current-system/sw/bin/hdparm";   options = [ "NOPASSWD" ]; }
+        ];
+      }
+    ];
   };
 
   fileSystems."/mnt/win11" = {

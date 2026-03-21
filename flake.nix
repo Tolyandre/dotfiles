@@ -33,9 +33,9 @@
 
       nixosConfigurations = {
         nixos-desktop = nixpkgs.lib.nixosSystem {
-          inherit system;
-
           modules = [
+            { nixpkgs.hostPlatform = system; }
+
             # make sops available for configuration and modules
             sops-nix.nixosModules.default
 
