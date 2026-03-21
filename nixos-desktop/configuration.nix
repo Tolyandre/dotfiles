@@ -169,6 +169,7 @@
       kdePackages.filelight
       kdePackages.partitionmanager
       libreoffice
+      lsof
       mc
       mission-center
       mpv
