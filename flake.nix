@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     flake-utils.url = "github:numtide/flake-utils";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -16,6 +17,7 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-master,
       home-manager,
       flake-utils,
       sops-nix,
@@ -52,6 +54,10 @@
           specialArgs = {
             secrets = secrets;
             unstable = import nixpkgs-unstable {
+              inherit system;
+              config.allowUnfree = true;
+            };
+            master = import nixpkgs-master {
               inherit system;
               config.allowUnfree = true;
             };
