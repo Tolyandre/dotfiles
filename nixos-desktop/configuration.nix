@@ -200,7 +200,7 @@
       wineWowPackages.stable
     ]
     ++ [
-      master.claude-code # TODO: switch back to unstable.claude-code once fix is in nixos-unstable
+      unstable.claude-code
       unstable.telegram-desktop
     ];
 

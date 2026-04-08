@@ -34,6 +34,10 @@
       postgres = {
         enableLocalDatabase = true;
       };
+      ollama = {
+        baseUrl = "http://localhost:11434";
+        model = "llama3.1:8b";
+      };
     };
   };
 }
