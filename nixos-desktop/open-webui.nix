@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 {
   # To edit use your text editor application, for example Nano
   services.ollama = {
-    # package = pkgs.unstable.ollama; # If you want to use the unstable channel package for example
+    package = unstable.ollama;
     enable = true;
     acceleration = "rocm"; # Or "rocm"
     rocmOverrideGfx = "10.3.0";
