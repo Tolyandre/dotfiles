@@ -4,7 +4,7 @@
   services.ollama = {
     package = unstable.ollama;
     enable = true;
-    acceleration = "rocm"; # Or "rocm"
+    acceleration = "rocm";
     rocmOverrideGfx = "10.3.0";
     environmentVariables = {
       OLLAMA_HOST = "localhost:11434";

@@ -196,10 +196,10 @@
       sops
       traceroute
       vlc
-      vscode.fhs
       wineWowPackages.stable
     ]
     ++ [
+      unstable.vscode.fhs
       unstable.claude-code
       unstable.telegram-desktop
     ];
