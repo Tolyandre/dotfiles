@@ -145,7 +145,6 @@
   ];
 
   programs.firefox.enable = true;
-  programs.direnv.enable = true;
   programs.steam.enable = true;
 
   # Allow unfree packages

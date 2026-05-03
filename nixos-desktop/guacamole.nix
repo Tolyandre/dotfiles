@@ -21,7 +21,7 @@
   sops.secrets."guacamole_user_mapping.xml" = {
     sopsFile = builtins.toString secrets + "/secrets/guacamole_user_mapping.xml.sops";
     path = "/run/secrets/guacamole/guacamole_user_mapping.xml";
-    owner = "root";
+    owner = "tomcat";
     mode = "0400";
     format = "binary";
   };
