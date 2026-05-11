@@ -30,6 +30,7 @@
     ./pipewire.nix
     ./podman.nix
     ./postgresql.nix
+    ./scanner
     ./shell.nix
   ];
 

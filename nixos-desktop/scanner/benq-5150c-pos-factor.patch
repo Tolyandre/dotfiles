@@ -1,0 +1,16 @@
+--- a/backend/snapscan-scsi.c
++++ b/backend/snapscan-scsi.c
+@@ -973,9 +973,12 @@
+     {
+         case PRISA5000:
+         case PRISA5000E:
+-        case PRISA5150:
+             pos_factor = (pss->res > 600) ?  1200 : 600;
+             break;
++        case PRISA5150:
++            /* BenQ 5150c uses 1200 DPI position units, not 600. */
++            pos_factor = (pss->res > 600) ?  2400 : 1200;
++            break;
+         case PERFECTION1270:
+         case PERFECTION1670:
+             pos_factor = (pss->res > 800) ?  1600 : 800;
