@@ -139,9 +139,8 @@
     ];
   };
 
-  # for lutris-0.5.19
   nixpkgs.config.permittedInsecurePackages = [
-    "mbedtls-2.28.10"
+    "electron-39.8.10" # bitwarden-desktop, EOL but no known exploits yet
   ];
 
   programs.firefox.enable = true;
@@ -173,7 +172,7 @@
       mc
       mission-center
       mpv
-      neofetch
+      fastfetch
       nil
       nix-search-cli
       nix-tree
@@ -195,7 +194,7 @@
       sops
       traceroute
       vlc
-      wineWowPackages.stable
+      wineWow64Packages.stable
     ]
     ++ [
       unstable.vscode.fhs
@@ -285,6 +284,7 @@
   fileSystems."/mnt/data" = {
     # for some reason this btrfs partition does not exists by-label, but exists by-uuid
     device = "/dev/disk/by-uuid/6831b904-2714-4940-bdf9-f4147cbdd6f5";
+    fsType = "btrfs";
     options = [
       "rw"
       "exec"
@@ -318,6 +318,7 @@
 
   fileSystems."/mnt/seagate" = {
     device = "/dev/disk/by-label/seagate";
+    fsType = "ext4";
     options = [
       "rw"
       "exec"

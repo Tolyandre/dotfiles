@@ -2,9 +2,8 @@
 {
   # To edit use your text editor application, for example Nano
   services.ollama = {
-    package = unstable.ollama;
+    package = unstable.ollama-rocm;
     enable = true;
-    acceleration = "rocm";
     rocmOverrideGfx = "10.3.0";
     environmentVariables = {
       OLLAMA_HOST = "localhost:11434";
