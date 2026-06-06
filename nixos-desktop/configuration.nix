@@ -6,7 +6,6 @@
   config,
   pkgs,
   unstable,
-  master,
   secrets,
   ...
 }:
