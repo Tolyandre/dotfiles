@@ -144,7 +144,23 @@
   ];
 
   programs.firefox.enable = true;
-  programs.steam.enable = true;
+
+  # Fix small cursor in Steam and games on 4K/HiDPI.
+  # XCURSOR_SIZE alone often doesn't help (XWayland scaling quirks, games with
+  # their own software cursor, the SDL2 HiDPI cursor bug). The reliable per-game
+  # fix is gamescope: add to a game's Properties → Launch Options:
+  #   gamescope -W 3840 -H 2160 -f -- %command%
+  # XCURSOR_SIZE is still set inside Steam's FHS env (not globally) as a
+  # baseline, so other apps keep their 24px cursor.
+  programs.steam = {
+    enable = true;
+    package = pkgs.steam.override {
+      extraProfile = ''
+        export XCURSOR_SIZE=48
+      '';
+    };
+    extraPackages = [ pkgs.gamescope ];
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
