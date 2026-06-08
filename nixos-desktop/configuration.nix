@@ -30,6 +30,7 @@
     ./podman.nix
     ./postgresql.nix
     ./shell.nix
+    ./happ/happ-module.nix
   ];
 
   # Bootloader.
@@ -111,6 +112,8 @@
     };
   };
   services.fail2ban.enable = true;
+
+  services.happ.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.toly = {
