@@ -194,7 +194,7 @@
       nil
       nix-search-cli
       nix-tree
-      nixfmt-rfc-style
+      nixfmt
       unixtools.netstat
       nodejs
       nvd

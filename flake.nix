@@ -52,7 +52,7 @@
           specialArgs = {
             secrets = secrets;
             unstable = import nixpkgs-unstable {
-              inherit system;
+              localSystem = system;
               config.allowUnfree = true;
             };
           };
