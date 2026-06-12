@@ -181,6 +181,7 @@
       go
       google-chrome
       htop
+      imagemagick
       jami
       jq
       kdePackages.filelight
