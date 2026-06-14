@@ -2,6 +2,7 @@
   config,
   pkgs,
   secrets,
+  elo,
   ...
 }:
 {
@@ -19,10 +20,11 @@
     format = "dotenv";
   };
 
-  services.elo-web-service = {
-    enable = true;
+  # Production backend instance. Keyed "elo-web-service" so the systemd unit,
+  # system user/group, state dir and Postgres db/user keep their existing names.
+  services.elo-web-service.instances."elo-web-service" = {
     secrets-env-file = config.sops.secrets."elo-web-service/secrets.env".path;
-    config = {
+    settings = {
       address = "localhost:42981";
       oauth2_auth_uri = "https://accounts.google.com/o/oauth2/auth";
       oauth2_redirect_uri = "https://tolyandre.github.io/elo/oauth2-callback";
@@ -40,5 +42,13 @@
         visionModel = "llama3.2-vision:11b";
       };
     };
+  };
+
+  # Production frontend, served on the domain at /elo (in addition to GitHub
+  # Pages). Same prod backend, so it shares the prod session cookie.
+  services.elo-frontend.instances."elo" = {
+    basePath = "/elo";
+    apiBaseUrl = "https://toly.is-cool.dev/elo-web-service";
+    revision = elo.shortRev or "dev";
   };
 }

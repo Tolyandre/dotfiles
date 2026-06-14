@@ -19,6 +19,7 @@
     ./camera.nix
     ./dotnet/dotnet.nix
     ./elo-web-service.nix
+    ./elo-stage.nix
     ./guacamole.nix
     ./immich.nix
     ./navidrome.nix

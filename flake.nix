@@ -9,6 +9,9 @@
     sops-nix.url = "github:Mic92/sops-nix";
     secrets.url = "git+ssh://git@github.com/Tolyandre/dotfiles-secrets.git";
     elo.url = "github:tolyandre/elo";
+    # Stage is pinned to the git tag `stage`; move the tag and
+    # `nix flake update elo-stage` to deploy a different commit to stage.
+    elo-stage.url = "github:tolyandre/elo/stage";
   };
 
   outputs =
@@ -21,6 +24,7 @@
       sops-nix,
       secrets,
       elo,
+      elo-stage,
       ...
     }:
     let
@@ -42,8 +46,9 @@
             # main system configuration (will be called with module args)
             ./nixos-desktop/configuration.nix
 
-            #elo-web-service configuration module
+            #elo-web-service backend module (multi-instance) + static frontend builder
             elo.nixosModules.default
+            elo.nixosModules.frontend
 
             # home-manager provided module
             home-manager.nixosModules.home-manager
@@ -51,6 +56,7 @@
 
           specialArgs = {
             secrets = secrets;
+            inherit elo elo-stage;
             unstable = import nixpkgs-unstable {
               localSystem = system;
               config.allowUnfree = true;
