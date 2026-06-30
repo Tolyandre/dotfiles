@@ -24,6 +24,7 @@
     ./immich.nix
     ./navidrome.nix
     ./networking.nix
+    ./nix-ld.nix
     ./ocis.nix
     ./open-webui.nix
     ./pay-respects.nix
