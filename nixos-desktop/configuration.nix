@@ -17,6 +17,7 @@
     ./backup.nix
     ./caddy/caddy.nix
     ./camera.nix
+    ./codex.nix
     ./dotnet/dotnet.nix
     ./elo-web-service.nix
     ./elo-stage.nix
