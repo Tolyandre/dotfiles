@@ -212,6 +212,7 @@
       popcorntime
       qbittorrent
       qdirstat
+      qwen-code
       sops
       traceroute
       vlc
