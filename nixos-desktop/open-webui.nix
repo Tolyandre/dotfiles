@@ -1,6 +1,10 @@
-{ config, pkgs, unstable, ... }:
 {
-  # To edit use your text editor application, for example Nano
+  config,
+  pkgs,
+  unstable,
+  ...
+}:
+{
   services.ollama = {
     package = unstable.ollama-rocm;
     enable = true;
@@ -10,19 +14,46 @@
       ROCR_VISIBLE_DEVICES = "0"; # use discrete GPU instead of integrated
     };
     models = "/mnt/data/ollama_models";
-
-    # environmentVariables = { # I haven't been able to get this to work, but please see the serviceConfig workaround below
-    # HOME = "/home/ollama";
-    # OLLAMA_MODELS = "/home/ollama/models";
-    # OLLAMA_HOST = "0.0.0.0:11434"; # Make Ollama accesible outside of localhost
-    # OLLAMA_ORIGINS = "http://localhost:8080,http://192.168.0.10:*"; # Allow access, otherwise Ollama returns 403 forbidden due to CORS
-    #};
   };
 
-  # The Ollama environment variables, as mentioned in the comments section
   systemd.services.ollama.serviceConfig = {
-    #Environment = [ "OLLAMA_HOST=localhost:11434" ];
     ExecStartPre = "/usr/bin/env sleep 30"; # Fix "no compatible GPUs were discovered"
+  };
+
+  # my custom models
+  environment.etc."ollama/gpt-oss-my-model.Modelfile".text = ''
+    FROM gpt-oss:latest
+    PARAMETER num_ctx 86000
+  '';
+
+  environment.etc."ollama/glm-4.7-flash-my-model.Modelfile".text = ''
+    FROM glm-4.7-flash:latest
+    PARAMETER num_ctx 86000
+  '';
+
+  systemd.services.ollama-create-models = {
+    description = "Create custom Ollama models";
+    after = [ "ollama.service" ];
+    wants = [ "ollama.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      User = "ollama";
+      Group = "ollama";
+      Environment = [ "HOME=/var/lib/ollama" ];
+      Restart = "no";
+    };
+
+    script = ''
+      # Подождать, пока API Ollama станет доступен
+      until ${config.services.ollama.package}/bin/ollama list ; do
+        sleep 1
+      done
+
+      ${config.services.ollama.package}/bin/ollama create gpt-oss-my-model -f /etc/ollama/gpt-oss-my-model.Modelfile
+      ${config.services.ollama.package}/bin/ollama create glm-4.7-flash-my-model -f /etc/ollama/glm-4.7-flash-my-model.Modelfile
+    '';
   };
 
   services.open-webui = {
@@ -36,16 +67,9 @@
       SCARF_NO_ANALYTICS = "True";
       OLLAMA_API_BASE_URL = "http://localhost:11434/api";
       OLLAMA_BASE_URL = "http://localhost:11434";
-      
       HOME = "${config.services.open-webui.stateDir}";
-
-      # does not work
-      # WEBUI_URL = "https://toly.is-cool.dev/open-webui/";
     };
   };
 
-  # Add oterm to the systemPackages
-  environment.systemPackages = with pkgs; [
-    oterm
-  ];
+  environment.systemPackages = with pkgs; [ oterm ];
 }

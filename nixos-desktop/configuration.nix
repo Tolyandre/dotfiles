@@ -223,7 +223,6 @@
       unstable.vscode.fhs
       unstable.claude-code
       unstable.telegram-desktop
-      unstable.zed-editor-fhs
     ];
 
   # Some programs need SUID wrappers, can be configured further or are
