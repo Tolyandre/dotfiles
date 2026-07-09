@@ -22,6 +22,7 @@
     ./elo-web-service.nix
     ./elo-stage.nix
     ./guacamole.nix
+    ./hermes.nix
     ./immich.nix
     ./navidrome.nix
     ./networking.nix

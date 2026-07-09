@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    hermes-agent.url = "github:NousResearch/hermes-agent";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     flake-utils.url = "github:numtide/flake-utils";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -25,6 +26,7 @@
       secrets,
       elo,
       elo-stage,
+      hermes-agent,
       ...
     }:
     let
@@ -50,13 +52,15 @@
             elo.nixosModules.default
             elo.nixosModules.frontend
 
+            hermes-agent.nixosModules.default
+
             # home-manager provided module
             home-manager.nixosModules.home-manager
           ];
 
           specialArgs = {
             secrets = secrets;
-            inherit elo elo-stage;
+            inherit elo elo-stage hermes-agent;
             unstable = import nixpkgs-unstable {
               localSystem = system;
               config.allowUnfree = true;
