@@ -184,6 +184,7 @@
       dysk
       go
       google-chrome
+      gws # Google Workspace (Gmail, Docs, Drive, etc.) CLI
       htop
       imagemagick
       jami
