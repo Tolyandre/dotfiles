@@ -13,7 +13,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # home-manager is now provided by the flake; remove the fetchTarball/import here
+    ./appimage.nix
     ./backup.nix
     ./caddy/caddy.nix
     ./camera.nix
