@@ -28,6 +28,7 @@
     ./networking.nix
     ./nix-ld.nix
     ./ocis.nix
+    ./opencode.nix
     ./open-webui.nix
     ./pay-respects.nix
     ./pipewire.nix
@@ -192,6 +193,7 @@
       kdePackages.filelight
       kdePackages.partitionmanager
       libreoffice
+      lmstudio
       lsof
       mc
       mission-center
@@ -207,7 +209,6 @@
       nvme-cli
       nvtopPackages.amd
       obsidian
-      opencode
       partclone
       pciutils
       pnpm
