@@ -148,6 +148,7 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-39.8.10" # bitwarden-desktop, EOL but no known exploits yet
+    "pnpm-9.15.9"
   ];
 
   programs.firefox.enable = true;
