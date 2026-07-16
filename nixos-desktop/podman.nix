@@ -6,7 +6,7 @@
       dockerCompat = true;
     };
 
-    # see also nixos/home-toly/podman.nix
+    # see also nixos-desktop/home-toly/podman.nix
     containers = {
       enable = true;
       policy = {

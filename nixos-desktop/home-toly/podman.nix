@@ -1,5 +1,5 @@
 {
-  # See also nixos/podman.nix
+  # See also nixos-desktop/podman.nix
 
   # Also you may need to set subuid and subgid for your user:
   # subUidRanges = [
