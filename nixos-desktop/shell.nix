@@ -4,10 +4,9 @@
     (writeShellScriptBin "my-update-elo" ''
       set -e
 
-      export HTTPS_PROXY="socks5://127.0.0.1:20170"
-      export https_proxy="socks5://127.0.0.1:20170"
-      export HTTP_PROXY="socks5://127.0.0.1:20170"
-      export http_proxy="socks5://127.0.0.1:20170"
+      export https_proxy="http://127.0.0.1:2080"
+      export http_proxy="http://127.0.0.1:2080"
+      export no_proxy="localhost,127.0.0.1"
 
       nix flake update elo --flake /dotfiles-repo
 
@@ -20,10 +19,9 @@
     (writeShellScriptBin "my-update" ''
       set -e
 
-      export HTTPS_PROXY="socks5://127.0.0.1:20170"
-      export https_proxy="socks5://127.0.0.1:20170"
-      export HTTP_PROXY="socks5://127.0.0.1:20170"
-      export http_proxy="socks5://127.0.0.1:20170"
+      export https_proxy="http://127.0.0.1:2080"
+      export http_proxy="http://127.0.0.1:2080"
+      export no_proxy="localhost,127.0.0.1"
 
       nix-channel --update
       nix flake update --flake /dotfiles-repo
