@@ -31,6 +31,26 @@
     }:
     let
       system = "x86_64-linux";
+
+      # Inject CONTAINER_HOST into FHS environments (vscode.fhs,
+      # appimage-run/agents) so the `docker`/`podman` CLIs route to the host
+      # rootless podman socket instead of running podman locally (which can't
+      # work — /run/wrappers is nosuid inside FHS envs). See
+      # nixos-desktop/podman.nix for the full rationale. Applied to BOTH the
+      # stable system nixpkgs (via the nixpkgs.overlays in that module) and to
+      # the `unstable` import here, so unstable.vscode.fhs is covered too.
+      fhsContainerHostOverlay = _: prev: {
+        buildFHSEnv =
+          args:
+          prev.buildFHSEnv (
+            args
+            // {
+              extraBwrapArgs = (args.extraBwrapArgs or [ ]) ++ [
+                "--setenv CONTAINER_HOST unix:///run/user/1000/podman/podman.sock"
+              ];
+            }
+          );
+      };
     in
     {
       devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
@@ -64,6 +84,7 @@
             unstable = import nixpkgs-unstable {
               localSystem = system;
               config.allowUnfree = true;
+              overlays = [ fhsContainerHostOverlay ];
             };
           };
         };
