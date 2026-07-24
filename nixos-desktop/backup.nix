@@ -32,9 +32,24 @@
 
       backup	/mnt/data/media_lib/	media_lib/
 
-      backup	/home/toly/Documents/	toly/
-      backup	/home/toly/Downloads/	toly/
-      backup	/home/toly/Repo/	toly/
+      # Whole home dir, including Trash. Exclude caches, toolchains and other
+      # reproducible/large dirs. Patterns are anchored to the source root with
+      # a leading "/" so they only match at the top of /home/toly.
+      # Excludes are grouped: requested, language toolchains/registries,
+      # editor extensions, then anything named node_modules anywhere.
+      backup	/home/toly/	toly/	\
+        exclude=/.cache	\
+        exclude=/.local/share/Steam	\
+        exclude=/go	\
+        exclude=/.bun	\
+        exclude=/.cargo	\
+        exclude=/.npm	\
+        exclude=/.nuget	\
+        exclude=/.dotnet	\
+        exclude=/.gradle	\
+        exclude=/.m2	\
+        exclude=/.thumbnails	\
+        exclude=node_modules
 
       backup	/my-secrets	my-secrets/
     '';
