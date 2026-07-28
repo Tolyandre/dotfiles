@@ -31,5 +31,26 @@
       echo ""
       nvd diff $(ls -dv /nix/var/nix/profiles/system-*-link | tail -2)
     '')
+
+    # Reset the AMD GPU after the system wakes from sleep (6700XT reset bug).
+    # Must be run as root: it writes to /sys, arms an rtcwake alarm, and suspends.
+    # Based on https://forum.level1techs.com/t/6700xt-reset-bug/181814/19
+    (writeShellScriptBin "my-sleep-reset" ''
+      set -ex
+
+      slot_gpu="0000:03:00.0"
+      slot_gpu_sound="0000:03:00.1"
+
+      echo 1 > /sys/bus/pci/devices/$slot_gpu/remove
+      echo 1 > /sys/bus/pci/devices/$slot_gpu_sound/remove
+
+      echo "Suspending..."
+      rtcwake -m no -s 4
+      systemctl suspend
+      sleep 5s
+
+      echo 1 > /sys/bus/pci/rescan
+      echo "Reset done"
+    '')
   ];
 }
