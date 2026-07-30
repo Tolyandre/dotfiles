@@ -265,19 +265,40 @@
   };
 
   nix = {
-    # Automatic Garbage Collection
+    # Automatic Garbage Collection. `persistent` resumes a missed run (e.g. when
+    # the machine is off) at the next activation instead of skipping it.
     gc = {
       automatic = true;
+      dates = "daily";
       options = "--delete-older-than 14d";
+      persistent = true;
     };
     settings = {
       experimental-features = [
         "nix-command"
         "flakes"
       ];
+      # Hardlink identical files across store paths, so old and new generations
+      # of a package share byte-identical blobs instead of duplicating them.
+      auto-optimise-store = true;
     };
   };
 
+  # Limit how many generations GRUB keeps as boot entries. The nix store copies
+  # for the rest are still subject to `nix.gc` above, but capping boot entries
+  # keeps the GRUB menu short.
+  boot.loader.grub.configurationLimit = 10;
+
+  # Cap the systemd journal so it can't grow unbounded (was ~3.9G before).
+  services.journald.extraConfig = ''
+    SystemMaxUse=500M
+    MaxRetentionSec="1month"
+  '';
+
+  # nh provides `nh os switch` and `nh clean`. We keep `nix.gc` (above) as the
+  # automatic garbage collector and leave nh.clean disabled: NixOS warns that
+  # enabling both at once conflicts, and `nix.gc` runs on a schedule whereas
+  # nh.clean is on-demand only.
   programs.nh = {
     enable = true;
     # clean.enable = true;
