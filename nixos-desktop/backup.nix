@@ -37,19 +37,9 @@
       # a leading "/" so they only match at the top of /home/toly.
       # Excludes are grouped: requested, language toolchains/registries,
       # editor extensions, then anything named node_modules anywhere.
-      backup	/home/toly/	toly/	\
-        exclude=/.cache	\
-        exclude=/.local/share/Steam	\
-        exclude=/go	\
-        exclude=/.bun	\
-        exclude=/.cargo	\
-        exclude=/.npm	\
-        exclude=/.nuget	\
-        exclude=/.dotnet	\
-        exclude=/.gradle	\
-        exclude=/.m2	\
-        exclude=/.thumbnails	\
-        exclude=node_modules
+      # NOTE: rsnapshot has NO line continuation; each backup point must be a
+      # single physical line with arguments separated by tabs.
+      backup	/home/toly/	toly/	exclude=/.cache	exclude=/.local/share/Steam	exclude=/go	exclude=/.bun	exclude=/.cargo	exclude=/.npm	exclude=/.nuget	exclude=/.dotnet	exclude=/.gradle	exclude=/.m2	exclude=/.thumbnails	exclude=node_modules
 
       backup	/my-secrets	my-secrets/
     '';
