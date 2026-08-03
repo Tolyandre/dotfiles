@@ -8,7 +8,7 @@
       export http_proxy="http://127.0.0.1:2080"
       export no_proxy="localhost,127.0.0.1"
 
-      nix flake update elo --flake /dotfiles-repo
+      nix flake update elo elo-stage --flake /dotfiles-repo
 
       nixos-rebuild switch --flake /dotfiles-repo#nixos-desktop
 
