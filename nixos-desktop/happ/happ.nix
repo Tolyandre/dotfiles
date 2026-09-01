@@ -5,11 +5,11 @@
 
 pkgs.stdenv.mkDerivation rec {
   pname = "happ-desktop";
-  version = "2.17.1";
+  version = "4.1.3";
 
   src = pkgs.fetchurl {
     url = "https://github.com/Happ-proxy/happ-desktop/releases/download/${version}/Happ.linux.x64.deb";
-    sha256 = "1gm1zjjvfvnmqcsp03x05i9kkidr9i6ccsih4m2zzinlshlybfg5";
+    sha256 = "MuVD7HlLw2XmCbTU91jPUrsxPwY7l7q7gomcIJ6a8CI=";
   };
 
   nativeBuildInputs = with pkgs; [
