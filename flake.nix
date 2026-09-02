@@ -13,6 +13,9 @@
     # Stage is pinned to the git tag `stage`; move the tag and
     # `nix flake update elo-stage` to deploy a different commit to stage.
     elo-stage.url = "github:tolyandre/elo/stage";
+    # AI agent tools (zcode etc). Consumed via overlays.shared-nixpkgs in
+    # home-toly so packages build against our nixpkgs instead of theirs.
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
@@ -27,6 +30,7 @@
       elo,
       elo-stage,
       hermes-agent,
+      llm-agents,
       ...
     }:
     let
@@ -80,7 +84,12 @@
 
           specialArgs = {
             secrets = secrets;
-            inherit elo elo-stage hermes-agent;
+            inherit
+              elo
+              elo-stage
+              hermes-agent
+              llm-agents
+              ;
             unstable = import nixpkgs-unstable {
               localSystem = system;
               config.allowUnfree = true;

@@ -7,6 +7,7 @@
   pkgs,
   unstable,
   secrets,
+  llm-agents,
   ...
 }:
 {
@@ -278,6 +279,18 @@
         "nix-command"
         "flakes"
       ];
+      # Кэш numtide отдаёт готовые сборки llm-agents.nix (zcode и его ~200МБ .deb
+      # fetch). FOD-хэш .deb одинаков независимо от пина nixpkgs, поэтому кэш
+      # попадает даже при сборке через overlays.shared-nixpkgs. Без этого каждая
+      # новая версия zcode качалась бы с cdn-zcode.z.ai при autoUpgrade.
+      substituters = [
+        "https://cache.nixos.org"
+        "https://cache.numtide.com"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+      ];
       # Hardlink identical files across store paths, so old and new generations
       # of a package share byte-identical blobs instead of duplicating them.
       auto-optimise-store = true;
@@ -308,6 +321,11 @@
 
   # home-manager
   home-manager.users.toly = import ./home-toly;
+  # NixOS specialArgs не попадают в модули home-manager автоматически;
+  # прокидываем llm-agents для подключения оверлея в home-toly.
+  home-manager.extraSpecialArgs = {
+    inherit llm-agents;
+  };
 
   security.sudo = {
     enable = true;
