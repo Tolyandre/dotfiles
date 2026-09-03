@@ -22,6 +22,7 @@
     ./dotnet/dotnet.nix
     ./elo-web-service.nix
     ./elo-stage.nix
+    ./github-access-tokens.nix
     ./guacamole.nix
     ./hermes.nix
     ./immich.nix
