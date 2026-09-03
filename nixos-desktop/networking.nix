@@ -1,3 +1,4 @@
+{ unstable, ... }:
 {
   networking.hostName = "nixos-desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -41,7 +42,19 @@
   # formaly nekoray
   programs.throne = {
     enable = true;
+    package = unstable.throne;
     tunMode.enable = true;
+  };
+
+  # The 26.05 throne module wraps `share/throne/Core`, but throne 1.2.x renamed
+  # that binary to `ThroneCore` and the GUI looks it up in PATH under the new
+  # name. Mirror the unstable module's wrapper until 26.05 ships the new module.
+  security.wrappers."throne-core".enable = false;
+  security.wrappers."ThroneCore" = {
+    source = "${unstable.throne}/share/throne/ThroneCore";
+    owner = "root";
+    group = "root";
+    capabilities = "cap_net_admin,cap_net_raw,cap_net_bind_service,cap_sys_ptrace,cap_dac_read_search+ep";
   };
 
   services.v2raya.enable = true;
