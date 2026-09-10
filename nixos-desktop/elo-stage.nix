@@ -37,7 +37,7 @@
       };
       ollama = {
         baseUrl = "http://localhost:11434";
-        model = "llama3.1:8b";
+        model = "gemma3:4b";
         visionModel = "llama3.2-vision:11b";
       };
     };
