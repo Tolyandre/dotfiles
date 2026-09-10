@@ -35,11 +35,6 @@
       postgres = {
         enableLocalDatabase = true;
       };
-      ollama = {
-        baseUrl = "http://localhost:11434";
-        model = "gemma3:4b";
-        visionModel = "llama3.2-vision:11b";
-      };
     };
   };
 
