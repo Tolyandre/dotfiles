@@ -4,7 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    hermes-agent.url = "github:NousResearch/hermes-agent";
+    # git+https instead of `github:` so the source is fetched via the git
+    # protocol: `github:` downloads a tarball through codeload.github.com,
+    # where Nix cannot send the access token on redirect and shared VPN
+    # exit IPs get 429ed.
+    hermes-agent.url = "git+https://github.com/NousResearch/hermes-agent";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     flake-utils.url = "github:numtide/flake-utils";
     sops-nix.url = "github:Mic92/sops-nix";
