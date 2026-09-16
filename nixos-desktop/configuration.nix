@@ -295,6 +295,12 @@
       # Hardlink identical files across store paths, so old and new generations
       # of a package share byte-identical blobs instead of duplicating them.
       auto-optimise-store = true;
+      # Keep build sandboxes on the tmpfs mounted at /nix/var/nix/builds (see
+      # the fileSystems entry below) instead of the root disk (sda2). This
+      # cannot be /tmp: Nix refuses world-writable build dirs and /tmp is 1777.
+      # A build that outgrows the tmpfs fails with "No space left on device"
+      # and must be retried after raising the mount's size option.
+      build-dir = "/nix/var/nix/builds";
     };
   };
 
@@ -403,17 +409,25 @@
     ];
   };
 
-  # sudo mkdir -p /mnt/data/tmp
-  # sudo chmod 1777 /mnt/data/tmp
-  fileSystems."/tmp" = {
-    depends = [ "/mnt/data" ];
-    device = "/mnt/data/tmp";
-    fsType = "none";
+  # /tmp is a RAM-backed tmpfs, capped well below the 64G of RAM so a runaway
+  # writer fails with ENOSPC instead of triggering the OOM killer (there is no
+  # swap). Contents are lost on reboot. The old disk-backed bind mount pointed
+  # at /mnt/data/tmp and is no longer used.
+  boot.tmp.useTmpfs = true;
+  boot.tmp.tmpfsSize = "24G";
+
+  # RAM-backed home for Nix build sandboxes (Nix's default build-dir). Keeps
+  # the heavy sda I/O of locally built derivations (immich/elo node_modules)
+  # off the root disk. /tmp can't serve this role: Nix rejects world-writable
+  # build dirs, and /tmp is mode 1777.
+  fileSystems."/nix/var/nix/builds" = {
+    device = "tmpfs";
+    fsType = "tmpfs";
     options = [
-      "bind"
-      "rw"
-      "exec"
-      "noatime"
+      "nosuid"
+      "nodev"
+      "mode=0755"
+      "size=24G"
     ];
   };
 
