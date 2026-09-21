@@ -331,7 +331,7 @@
   # NixOS specialArgs не попадают в модули home-manager автоматически;
   # прокидываем llm-agents для подключения оверлея в home-toly.
   home-manager.extraSpecialArgs = {
-    inherit llm-agents;
+    inherit llm-agents unstable;
   };
 
   security.sudo = {

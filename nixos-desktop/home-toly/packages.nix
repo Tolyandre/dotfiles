@@ -1,9 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  unstable,
+  ...
+}:
 
 {
   home.packages = [
     pkgs.atool
-    pkgs.devenv
+    unstable.devenv
     pkgs.gh
     pkgs.httpie
     pkgs.jetbrains.idea
