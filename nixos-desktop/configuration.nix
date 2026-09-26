@@ -37,6 +37,8 @@
     ./podman.nix
     ./postgresql.nix
     ./shell.nix
+    ./vm.nix
+    ./vm-backup.nix
     ./happ/happ-module.nix
   ];
 
