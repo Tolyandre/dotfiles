@@ -4,11 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Home Page</title>
     <style>
+        :root {
+            color-scheme: light dark;
+            --bg: #f4f4f4;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --btn-bg: #007BFF;
+            --btn-hover: #0056b3;
+            --btn-text: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #121212;
+                --card-bg: #1e1e1e;
+                --text: #e0e0e0;
+                --btn-bg: #0d84ff;
+                --btn-hover: #339dff;
+                --shadow: rgba(0, 0, 0, 0.6);
+            }
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: var(--bg);
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,14 +42,14 @@
 
         .container {
             text-align: center;
-            background: white;
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px var(--shadow);
         }
 
         h1 {
-            color: #333;
+            color: var(--text);
         }
 
         a {
@@ -34,14 +57,14 @@
             margin: 20px 0;
             padding: 10px 20px;
             text-decoration: none;
-            background-color: #007BFF;
-            color: white;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
             border-radius: 4px;
             transition: background-color 0.3s ease;
         }
 
         a:hover {
-            background-color: #0056b3;
+            background-color: var(--btn-hover);
         }
     </style>
 </head>
