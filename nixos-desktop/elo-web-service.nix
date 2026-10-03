@@ -27,7 +27,15 @@
     settings = {
       address = "localhost:42981";
       oauth2_auth_uri = "https://accounts.google.com/o/oauth2/auth";
-      oauth2_redirect_uri = "https://tolyandre.github.io/elo/oauth2-callback";
+      # Google returns each user to the callback page of the mirror they
+      # started from; the page exchanges the code with the API over XHR
+      # (ADR-29). The redirect_uri is derived per mirror as
+      # <frontend_uri|allowed_frontend_uris entry>/oauth2-callback — every
+      # entry must be registered in the Google OAuth client.
+      allowed_frontend_uris = [
+        "https://tolyandre.github.io/elo"
+        "https://toly.is-cool.dev/elo"
+      ];
       oauth2_token_uri = "https://oauth2.googleapis.com/token";
       oauth2_userinfo_uri = "https://www.googleapis.com/oauth2/v1/userinfo";
       oauth2_scopes = "openid https://www.googleapis.com/auth/userinfo.profile";

@@ -26,7 +26,11 @@
       # Distinct cookie name so stage and prod (same host) sessions don't clobber.
       cookie_name = "elo-web-service-stage-token";
       oauth2_auth_uri = "https://accounts.google.com/o/oauth2/auth";
-      oauth2_redirect_uri = "https://toly.is-cool.dev/elo-stage/oauth2-callback";
+      # The only stage mirror: Google redirects to its callback page
+      # (<mirror>/oauth2-callback, ADR-29) — registered in the Google client.
+      allowed_frontend_uris = [
+        "https://toly.is-cool.dev/elo-stage"
+      ];
       oauth2_token_uri = "https://oauth2.googleapis.com/token";
       oauth2_userinfo_uri = "https://www.googleapis.com/oauth2/v1/userinfo";
       oauth2_scopes = "openid https://www.googleapis.com/auth/userinfo.profile";
