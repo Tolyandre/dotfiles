@@ -40,11 +40,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1791221794,
-        "narHash": "sha256-P/TOz3emyvEqJV+eyhtA6wQDuGj+c+1WyksBSz5YHOo=",
+        "lastModified": 1791238385,
+        "narHash": "sha256-yT2M8wOs7IHUepwWHQOD1Ryeeo5zn9ZCKycmTy9txxI=",
         "owner": "tolyandre",
         "repo": "elo",
-        "rev": "bdb7da908c4fef3c845dac1835f504a1ef7c2d74",
+        "rev": "3b0e39810ef1403873fc2b3c98644910e4655a08",
         "type": "github"
       },
       "original": {
@@ -59,11 +59,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1791138662,
-        "narHash": "sha256-qvy1e0cAflQMwquhZ26ImadtvE5wP+Ml8OjuPqcBOJg=",
+        "lastModified": 1791238385,
+        "narHash": "sha256-yT2M8wOs7IHUepwWHQOD1Ryeeo5zn9ZCKycmTy9txxI=",
         "owner": "tolyandre",
         "repo": "elo",
-        "rev": "ed839825d8fd558e4e9a3ea6ab10e645058b662e",
+        "rev": "3b0e39810ef1403873fc2b3c98644910e4655a08",
         "type": "github"
       },
       "original": {
