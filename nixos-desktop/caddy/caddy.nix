@@ -1,4 +1,17 @@
 { config, pkgs, elo, ... }:
+let
+  # The homepage's elo links are substituted from the instances' typed
+  # basePath options, so renaming a mount path updates the links too.
+  homepage = pkgs.linkFarm "caddy-homepage" [
+    {
+      name = "index.html";
+      path = pkgs.replaceVars ./index.html {
+        elo_base_path = config.services.elo-frontend.instances."elo".basePath;
+        elo_stage_base_path = config.services.elo-frontend.instances."elo-stage".basePath;
+      };
+    }
+  ];
+in
 {
   services.caddy = {
     enable = true;
@@ -34,7 +47,7 @@
           reverse_proxy 127.0.0.1:${toString config.services.navidrome.settings.Port}
         }
 
-        root * /dotfiles-repo/nixos-desktop/caddy
+        root * ${homepage}
         handle_path /index.html
         file_server
       }
