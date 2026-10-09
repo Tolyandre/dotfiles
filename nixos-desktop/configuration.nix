@@ -15,6 +15,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./appimage.nix
+    ./amnezia-vpn.nix
     ./backup.nix
     ./caddy/caddy.nix
     ./camera.nix

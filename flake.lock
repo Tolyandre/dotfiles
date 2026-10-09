@@ -40,11 +40,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1791548156,
-        "narHash": "sha256-E/cU/mUX5qDul3lKkVlPSCVb9/LKjr4fmBykiLmCCd4=",
+        "lastModified": 1791550660,
+        "narHash": "sha256-9DSBGy5aJo5vx10LLXyuoI2edBpj36UWaYRlw5y4KmY=",
         "owner": "tolyandre",
         "repo": "elo",
-        "rev": "e1378b157b3e49a81e2508175c163a364438b20e",
+        "rev": "5de7ca4f2183577f867ecf03bf0db618938e9658",
         "type": "github"
       },
       "original": {
@@ -59,11 +59,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1791548156,
-        "narHash": "sha256-E/cU/mUX5qDul3lKkVlPSCVb9/LKjr4fmBykiLmCCd4=",
+        "lastModified": 1791550660,
+        "narHash": "sha256-9DSBGy5aJo5vx10LLXyuoI2edBpj36UWaYRlw5y4KmY=",
         "owner": "tolyandre",
         "repo": "elo",
-        "rev": "e1378b157b3e49a81e2508175c163a364438b20e",
+        "rev": "5de7ca4f2183577f867ecf03bf0db618938e9658",
         "type": "github"
       },
       "original": {
@@ -224,11 +224,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1791544577,
-        "narHash": "sha256-9QgQc1JHjafU1d0e15PpJuDBn8BxHPpg/SPovat31hA=",
+        "lastModified": 1791552931,
+        "narHash": "sha256-stIvDH7zxETZxzP6VdXyLVXsGTeXG/Lyel9HsaKWp5I=",
         "ref": "refs/heads/main",
-        "rev": "73162b00eefde3794bed0afb53d84a19c0eed230",
-        "revCount": 50996,
+        "rev": "0670ba45240b734c1e6f6d1d5ead87233f37df49",
+        "revCount": 50999,
         "type": "git",
         "url": "https://github.com/NousResearch/hermes-agent"
       },
