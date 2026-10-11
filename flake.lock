@@ -40,11 +40,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1791566276,
-        "narHash": "sha256-AyiDBUhA+z+qcf7x4XDtjBQO7rCeY3Youw33yqAgY6w=",
+        "lastModified": 1791713259,
+        "narHash": "sha256-Tgt7De4TuPQCHF67j5avkO+SHXO/RyE+2OW0HkY7/II=",
         "owner": "tolyandre",
         "repo": "elo",
-        "rev": "d65ec51cde51978b0bc37060f426253408f1b814",
+        "rev": "d86e68ef386b8ecd70fb99abf444fa825fc20401",
         "type": "github"
       },
       "original": {
