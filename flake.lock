@@ -224,11 +224,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1792057531,
-        "narHash": "sha256-wrBOxZxm5bgEtTeWDkty1th7W5ZTCL5n1ckhUmByEe4=",
+        "lastModified": 1792140011,
+        "narHash": "sha256-hUNiA2NhRmM2CeTnIZDsD+ExIU1csJX6awXvvv1i7HY=",
         "ref": "refs/heads/main",
-        "rev": "30463589eb54fa0f48724594cc0e98e6b995729b",
-        "revCount": 54528,
+        "rev": "27f73cb51ddc833c1e442480849fce35fb1fdfe4",
+        "revCount": 54795,
         "type": "git",
         "url": "https://github.com/NousResearch/hermes-agent"
       },
@@ -286,11 +286,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1792056293,
-        "narHash": "sha256-H2wGrjy3/l8hHZjpTabPSkM6EocN7v8pn/F4MR7cJmE=",
+        "lastModified": 1792123574,
+        "narHash": "sha256-Nfg3uuj6SrYd95vB2acYHLvQfjs9L2WZwMgkaKsQyOs=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "4e80fdc9b04f4531a78c89f6dff66e0a4d920b3f",
+        "rev": "64f24d6169b8e5996e0c3a3ae696bdf11806b34e",
         "type": "github"
       },
       "original": {
@@ -381,11 +381,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1791637130,
-        "narHash": "sha256-TuvwvSjJrpqyIYdjhQ7Wu+ADVfeOpO2Um21/V7TOubw=",
+        "lastModified": 1791966044,
+        "narHash": "sha256-t1hT8UW97rFCWCJO7/pClvu0AhLN5V3uir2M0ic4w/Q=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ca1659429c950a11a565b5764e37a1b704e17ec8",
+        "rev": "319e4cebef10cbb636c6ea392137b52ad105336a",
         "type": "github"
       },
       "original": {
@@ -397,11 +397,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1791883866,
-        "narHash": "sha256-yvkDdToRZ4IgPc9tSBzzCYJvTLf8n5eE3rgUkpCuD5A=",
+        "lastModified": 1792030654,
+        "narHash": "sha256-OaQwAtPMTjQiY2sT/2/62UbSPhzP/0aDnWzMm/NCiUw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a033e66ab94a6bedf2c3d58d93a36319d3cbbbaf",
+        "rev": "26f4107e47e3ad0ffd0db220469ba83b6f6d96e8",
         "type": "github"
       },
       "original": {
@@ -514,11 +514,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1791284639,
-        "narHash": "sha256-rCCBJ0AHmZYGptGU8vo5shP6Zq4YGyW9KjyuWngAQtM=",
+        "lastModified": 1792134390,
+        "narHash": "sha256-OTZpRzMZzBuL27P0k5Zjyn5ouSysiy+Cpm1NGs6l2Og=",
         "ref": "refs/heads/main",
-        "rev": "c3255a53e26f5e589a12f39cb0f5d2e0f2c8a758",
-        "revCount": 7,
+        "rev": "c1513be09e97dff7bbc11d629f341907635b2db9",
+        "revCount": 10,
         "type": "git",
         "url": "ssh://git@github.com/Tolyandre/dotfiles-secrets.git"
       },
