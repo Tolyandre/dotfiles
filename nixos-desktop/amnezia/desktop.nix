@@ -11,7 +11,7 @@
   # match). The unit mirrors lib/systemd/system/AmneziaVPN.service shipped in
   # the package; nixpkgs bakes absolute store paths for
   # openvpn/amneziawg/iptables into the binaries, so no extra PATH setup is
-  # needed.
+  # needed. See netns.nix for the headless network-namespace tunnel.
   environment.systemPackages = [ unstable.amnezia-vpn ];
 
   systemd.services.AmneziaVPN = {
