@@ -6,6 +6,7 @@
 {
   imports = [
     ./dosbox.nix
+    ./firefox-russian-cert.nix
     ./git.nix
     ./packages.nix
     ./podman.nix
