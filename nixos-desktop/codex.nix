@@ -6,6 +6,6 @@ let
 in
 {
   environment.systemPackages = [
-    codexWithProxy
+    # codexWithProxy
   ];
 }
