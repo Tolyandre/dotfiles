@@ -59,11 +59,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1794208464,
-        "narHash": "sha256-xEZIJfqVt93tIksBzGrahBDLJcccEyhr2xyAXrw2sPw=",
+        "lastModified": 1794465649,
+        "narHash": "sha256-BJ/T6KHE4PJwOzVNECco3BPrhflIrGAlgToAN/viVg0=",
         "owner": "tolyandre",
         "repo": "elo",
-        "rev": "60574e9ee4333a9916a01e8550745f319d9f1716",
+        "rev": "8dacdc91ebd6aed344df85a739e8009cf55ba6a7",
         "type": "github"
       },
       "original": {
