@@ -61,13 +61,26 @@
   ];
 
   # Masquerade namespace traffic on any egress interface (the host is
-  # multi-homed: eno1 + wlp10s0), so a null externalInterface is deliberate.
-  # Also enables net.ipv4.ip_forward.
-  networking.nat = {
-    enable = true;
-    externalInterface = null;
-    internalInterfaces = [ "awg-host" ];
-  };
+  # multi-homed: eno1 + wlp10s0), so the rule matches by source only.
+  # Deliberately NOT networking.nat: its fwmark-based implementation rewrites
+  # packet marks (MARK --set-xmark 0x1) in PREROUTING, erasing the tunnel's
+  # protective fwmark 0xca6c before the routing decision. That let the desktop
+  # client's full-tunnel policy rules capture namespace traffic into amn0 and
+  # blackholed the handshake (the 2026-11-13 outage). Plain source MASQUERADE
+  # never touches marks, so namespace traffic keeps its exemptions under any
+  # desktop client state.
+  networking.firewall.extraCommands = ''
+    iptables -w -t nat -A POSTROUTING -s 10.200.0.0/24 -j MASQUERADE 2>/dev/null || true
+    iptables -w -t filter -A nixos-filter-forward -i awg-host -j ACCEPT 2>/dev/null || true
+  '';
+  networking.firewall.extraStopCommands = ''
+    iptables -w -t nat -D POSTROUTING -s 10.200.0.0/24 -j MASQUERADE 2>/dev/null || true
+  '';
+
+  # Forwarding normally comes via networking.nat's boot sysctl; set it
+  # explicitly so the namespace never depends on another module's mkDefault
+  # chain (runtime guard: see awg-endpoint-refresh below).
+  boot.kernel.sysctl."net.ipv4.ip_forward" = true;
 
   # Persistent network namespace with a veth uplink to the host. The tunnel's
   # catch-all routes live only inside this namespace; host routing (and the
@@ -102,9 +115,22 @@
       # local services reachable from inside the namespace.
       ip netns exec awg ip route replace default via 10.200.0.1
       ip netns exec awg ip route replace 192.168.88.0/24 via 10.200.0.1
+      # Traffic arriving from the namespace must always use the host main
+      # table. Without this rule the desktop client's full-tunnel policy rules
+      # ("not fwmark 51820 table 51820" -> dev amn0) capture forwarded
+      # namespace packets whenever the desktop VPN is connected: the NixOS nat
+      # module marks awg-host traffic 0x1 in PREROUTING, erasing the tunnel's
+      # protective fwmark 0xca6c before the routing decision, so handshake
+      # packets disappear into the desktop tunnel and the server's replies
+      # come back to a dead NAT port. Priority 100 preempts the desktop
+      # daemon's rules (32764+). This made run-with-vpn die whenever the
+      # desktop VPN was up (diagnosed 2026-11-13).
+      ip rule show | grep -q "iif awg-host" ||
+        ip rule add iif awg-host lookup main priority 100
     '';
 
     preStop = ''
+      ip rule del iif awg-host lookup main priority 100 2>/dev/null || true
       ip netns del awg || true
     '';
   };
@@ -172,10 +198,25 @@
     serviceConfig.Type = "oneshot";
 
     script = ''
+      # Self-heal forwarding: on this host net.ipv4.ip_forward was found reset
+      # to 0 at runtime (2026-11-13), which silently blackholed the whole
+      # namespace — packets reached PREROUTING but died before FORWARD, so the
+      # tunnel sent handshakes that never left the machine. The boot sysctl
+      # covers reboots; this guards against a recurrence between them.
+      echo 1 > /proc/sys/net/ipv4/ip_forward
       conf=/run/amnezia-netns/awg0.conf
       [ -f "$conf" ] || exit 0
       # `ip netns list` prints "awg (id: 0)" — match the name column only.
       ip netns list | cut -d' ' -f1 | grep -qx awg || exit 0
+
+      # Skip refresh while the peer is healthy: the entry hostname resolves to
+      # several A records (GeoDNS round-robin), so re-setting the endpoint on
+      # every run relocates the NAT mapping and forces a needless rehandshake
+      # every ~30 s. Only step in when no handshake succeeded for 3 minutes.
+      hs=$(ip netns exec awg awg show awg0 latest-handshakes \
+        | tr -s '[:blank:]' ' ' | cut -d' ' -f2 | head -n1)
+      [ -n "$hs" ] && [ "$hs" -gt 0 ] || hs=0
+      [ $(( $(date +%s) - hs )) -lt 180 ] && exit 0
 
       endpoint=$(sed -n 's/^[[:space:]]*Endpoint[[:space:]]*=[[:space:]]*//p' "$conf" | head -n1)
       host=''${endpoint%:*}
