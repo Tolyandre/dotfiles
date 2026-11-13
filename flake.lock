@@ -59,11 +59,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1794465649,
-        "narHash": "sha256-BJ/T6KHE4PJwOzVNECco3BPrhflIrGAlgToAN/viVg0=",
+        "lastModified": 1794518319,
+        "narHash": "sha256-SQvYOPzj7XZufdsfbryN59sXJYx4rRVAUEf2m1VxeFk=",
         "owner": "tolyandre",
         "repo": "elo",
-        "rev": "8dacdc91ebd6aed344df85a739e8009cf55ba6a7",
+        "rev": "b24ce485972671c322831d27110279dbe09d481e",
         "type": "github"
       },
       "original": {
@@ -223,11 +223,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1794472457,
-        "narHash": "sha256-VL9Y6nSOeTszGNWsFJnFlzruJ5HBjJbl3iA9uWUotXc=",
+        "lastModified": 1794562292,
+        "narHash": "sha256-cA05YPcHVQIULqxm5m0V4War39ZAKHQUryuthvcVAIE=",
         "ref": "refs/heads/main",
-        "rev": "a347e069202c422d8cafa8d981bf81d66d7ebb59",
-        "revCount": 68905,
+        "rev": "affd7889086d911356c6905943d7db8a6e2f7dc3",
+        "revCount": 70119,
         "type": "git",
         "url": "https://github.com/NousResearch/hermes-agent"
       },
@@ -285,11 +285,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1794446492,
-        "narHash": "sha256-AIiEQTIvcYJZbIpJUEiZ/y6P2cIL7OVaZjncpv4FlLM=",
+        "lastModified": 1794551759,
+        "narHash": "sha256-kL6q4ItZT++IjrrDlcUOL9L0XNzTLb2+4xQgpHBzx/I=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "a4ef5bdd670dc14d115a2f4cd38a2955303254f3",
+        "rev": "860075d959fc68c31fd405989daf85c1b1f0db38",
         "type": "github"
       },
       "original": {
@@ -316,11 +316,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1794192123,
-        "narHash": "sha256-SvB8u5qaJAOwZZyZciqTVOg/rBoUs2w0sFTU6ED51AQ=",
+        "lastModified": 1794386569,
+        "narHash": "sha256-x9sADJvoVG0L6RejZB+/BB4YiGZFBZrfTlhF4uBq1tQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "177d0540942fb205af6993b1d5fa0b57799e09f8",
+        "rev": "d4f25a3e562008648d45bcf2d70bcc7422cad84e",
         "type": "github"
       },
       "original": {
