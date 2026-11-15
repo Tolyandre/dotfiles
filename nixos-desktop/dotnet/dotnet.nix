@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    jetbrains.rider
+    # jetbrains.rider
     dotnetCorePackages.sdk_9_0-bin
   ];
 }

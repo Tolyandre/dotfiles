@@ -11,7 +11,7 @@
     unstable.devenv
     pkgs.gh
     pkgs.httpie
-    pkgs.jetbrains.idea
+    # pkgs.jetbrains.idea
     pkgs.llm-agents.zcode
   ];
 
