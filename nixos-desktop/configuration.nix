@@ -200,7 +200,7 @@
       kdePackages.filelight
       kdePackages.partitionmanager
       libreoffice
-      lmstudio
+      # lmstudio
       lsof
       mc
       mission-center
