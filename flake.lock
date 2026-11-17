@@ -40,11 +40,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1794208464,
-        "narHash": "sha256-xEZIJfqVt93tIksBzGrahBDLJcccEyhr2xyAXrw2sPw=",
+        "lastModified": 1794833121,
+        "narHash": "sha256-CxZjbBf1v/4VvAIuRt0qp+vc5UrC/mJVSJBGHSLcXyE=",
         "owner": "tolyandre",
         "repo": "elo",
-        "rev": "60574e9ee4333a9916a01e8550745f319d9f1716",
+        "rev": "c3efdb288db3182148259963335283c489f10a93",
         "type": "github"
       },
       "original": {
@@ -59,11 +59,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1794651592,
-        "narHash": "sha256-l4qorKcfsXw26jsFNxRuMdtr+2o6cWV3WgmsXE3wU4U=",
+        "lastModified": 1794833121,
+        "narHash": "sha256-CxZjbBf1v/4VvAIuRt0qp+vc5UrC/mJVSJBGHSLcXyE=",
         "owner": "tolyandre",
         "repo": "elo",
-        "rev": "f00f9eb81cd27477879b78d82c7223e9363e6f76",
+        "rev": "c3efdb288db3182148259963335283c489f10a93",
         "type": "github"
       },
       "original": {
@@ -223,11 +223,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1794731560,
-        "narHash": "sha256-RFonEUSKh5A+5o/JPBZF3wlwPA+j9R82sf0dBBI7VQQ=",
+        "lastModified": 1794832747,
+        "narHash": "sha256-7mIXn67QSEC59TokPug5l2eZvUwKKIZCKYhBcwwW6m4=",
         "ref": "refs/heads/main",
-        "rev": "fd8a6c41ace59b476193c61002ce6a86d667b18a",
-        "revCount": 72981,
+        "rev": "f8acc26834bf1275c34d09ccc3e51250bcd1e26b",
+        "revCount": 73297,
         "type": "git",
         "url": "https://github.com/NousResearch/hermes-agent"
       },
@@ -285,11 +285,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1794721493,
-        "narHash": "sha256-7extb+ld6xPCzcVuhVdvcvGPLu/qtDRrhFJmH68jXfM=",
+        "lastModified": 1794808658,
+        "narHash": "sha256-RbvK/ghvMuWWx/riUqtCZCxjZFji2n3onTo2Kg60T3s=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "aeb1afe1529c5dc7dcdc54d644a8aed212d99dd0",
+        "rev": "733d5b0fa81d5aad7c623dca8d8170ce411fba1d",
         "type": "github"
       },
       "original": {
