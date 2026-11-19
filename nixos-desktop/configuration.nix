@@ -266,8 +266,14 @@
   };
 
   # fix "repository path '/dotfiles-repo' is not owned by current user" for `nixos-upgrade-start`
-  programs.git.config = {
-    safe.directory = [ "/dotfiles-repo" ];
+  # `enable` is required: the NixOS git module only generates /etc/gitconfig
+  # (which nix's libgit2 consults for safe.directory) when programs.git.enable
+  # is true. Without it the safe.directory below never got activated and the
+  # nightly nixos-upgrade service failed every run (the repo is owned by toly,
+  # the service runs as root).
+  programs.git = {
+    enable = true;
+    config.safe.directory = [ "/dotfiles-repo" ];
   };
 
   nix = {
