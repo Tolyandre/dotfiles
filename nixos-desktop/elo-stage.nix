@@ -19,7 +19,7 @@
   # Stage backend instance. Keyed "elo-web-service-stage" so it gets its own
   # systemd unit, user/group, state dir and Postgres db/user, isolated from prod.
   services.elo-web-service.instances."elo-web-service-stage" = {
-    package = elo-stage.packages.${pkgs.system}.default;
+    package = elo-stage.packages.${pkgs.stdenv.hostPlatform.system}.default;
     secrets-env-file = config.sops.secrets."elo-web-service-stage/secrets.env".path;
     settings = {
       address = "localhost:42982";
@@ -44,7 +44,7 @@
 
   # Stage frontend, served on the domain at /elo-stage with the test banner.
   services.elo-frontend.instances."elo-stage" = {
-    package = elo-stage.packages.${pkgs.system}.frontend;
+    package = elo-stage.packages.${pkgs.stdenv.hostPlatform.system}.frontend;
     basePath = "/elo-stage";
     apiBaseUrl = "https://toly.is-cool.dev/elo-web-service-stage";
     banner = "Тестовый сервер";

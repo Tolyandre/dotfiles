@@ -6,9 +6,9 @@
   };
 
   # hermes-desktop
-  # you can also run without install: 
+  # you can also run without install:
   # nix run github:NousResearch/hermes-agent#desktop
   environment.systemPackages = [
-    hermes-agent.packages.${pkgs.system}.desktop
+    hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.desktop
   ];
 }
