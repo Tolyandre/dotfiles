@@ -264,6 +264,10 @@
     # systems, it only updates root's nixos channel (which the flake build
     # ignores anyway).
     flake = "/dotfiles-repo";
+    # Run inside the 06:00-07:00 reboot window: the service only reboots when
+    # the script itself runs within the window, so a 04:40 (default) run would
+    # build a new generation and never reboot it.
+    dates = "06:10";
     allowReboot = true;
     rebootWindow = {
       lower = "06:00";
@@ -292,6 +296,10 @@
       persistent = true;
     };
     settings = {
+      # Fail fast on unreachable substituters: cache.numtide.com (needed for
+      # llm-agents/zcode builds) sometimes times out from this network, and
+      # the default behavior stalls 15s x 5 retries per narinfo.
+      connect-timeout = 5;
       experimental-features = [
         "nix-command"
         "flakes"
