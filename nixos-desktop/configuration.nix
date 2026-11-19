@@ -258,6 +258,12 @@
 
   system.autoUpgrade = {
     enable = true;
+    # Explicit, so the nightly rebuild doesn't depend on nixos-rebuild-ng
+    # auto-detecting /etc/nixos/flake.nix (a symlink into this repo). The
+    # flake stays locked: --upgrade never updates flake.lock for flake
+    # systems, it only updates root's nixos channel (which the flake build
+    # ignores anyway).
+    flake = "/dotfiles-repo";
     allowReboot = true;
     rebootWindow = {
       lower = "06:00";
