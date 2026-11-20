@@ -336,7 +336,8 @@
   # Cap the systemd journal so it can't grow unbounded (was ~3.9G before).
   services.journald.extraConfig = ''
     SystemMaxUse=500M
-    MaxRetentionSec="1month"
+    # Unquoted: journald rejects quoted time values ("Invalid argument").
+    MaxRetentionSec=1month
   '';
 
   # nh provides `nh os switch` and `nh clean`. We keep `nix.gc` (above) as the
